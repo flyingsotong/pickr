@@ -1,0 +1,61 @@
+{
+  "": {
+    "dependencies": "/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/Pickr.d",
+    "object": "/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/Pickr.o",
+    "swift-dependencies": "/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/primary.swiftdeps"
+  },
+  "/Users/alansoon/Documents/Pickr/Sources/Pickr/AudioManager.swift": {
+    "object": "/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/AudioManager.swift.o",
+    "swiftmodule": "/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/AudioManager~partial.swiftmodule",
+    "swift-dependencies": "/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/AudioManager.swiftdeps",
+    "diagnostics": "/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/AudioManager.dia"
+  },
+  "/Users/alansoon/Documents/Pickr/Sources/Pickr/Constants.swift": {
+    "object": "/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/Constants.swift.o",
+    "swiftmodule": "/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/Constants~partial.swiftmodule",
+    "swift-dependencies": "/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/Constants.swiftdeps",
+    "diagnostics": "/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/Constants.dia"
+  },
+  "/Users/alansoon/Documents/Pickr/Sources/Pickr/LoginItemManager.swift": {
+    "object": "/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/LoginItemManager.swift.o",
+    "swiftmodule": "/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/LoginItemManager~partial.swiftmodule",
+    "swift-dependencies": "/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/LoginItemManager.swiftdeps",
+    "diagnostics": "/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/LoginItemManager.dia"
+  },
+  "/Users/alansoon/Documents/Pickr/Sources/Pickr/MenuView.swift": {
+    "object": "/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/MenuView.swift.o",
+    "swiftmodule": "/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/MenuView~partial.swiftmodule",
+    "swift-dependencies": "/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/MenuView.swiftdeps",
+    "diagnostics": "/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/MenuView.dia"
+  },
+  "/Users/alansoon/Documents/Pickr/Sources/Pickr/NicknameStore.swift": {
+    "object": "/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/NicknameStore.swift.o",
+    "swiftmodule": "/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/NicknameStore~partial.swiftmodule",
+    "swift-dependencies": "/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/NicknameStore.swiftdeps",
+    "diagnostics": "/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/NicknameStore.dia"
+  },
+  "/Users/alansoon/Documents/Pickr/Sources/Pickr/OSDWindow.swift": {
+    "object": "/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/OSDWindow.swift.o",
+    "swiftmodule": "/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/OSDWindow~partial.swiftmodule",
+    "swift-dependencies": "/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/OSDWindow.swiftdeps",
+    "diagnostics": "/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/OSDWindow.dia"
+  },
+  "/Users/alansoon/Documents/Pickr/Sources/Pickr/PickrApp.swift": {
+    "object": "/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/PickrApp.swift.o",
+    "swiftmodule": "/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/PickrApp~partial.swiftmodule",
+    "swift-dependencies": "/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/PickrApp.swiftdeps",
+    "diagnostics": "/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/PickrApp.dia"
+  },
+  "/Users/alansoon/Documents/Pickr/Sources/Pickr/SettingsView.swift": {
+    "object": "/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/SettingsView.swift.o",
+    "swiftmodule": "/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/SettingsView~partial.swiftmodule",
+    "swift-dependencies": "/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/SettingsView.swiftdeps",
+    "diagnostics": "/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/SettingsView.dia"
+  },
+  "/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/DerivedSources/resource_bundle_accessor.swift": {
+    "object": "/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/resource_bundle_accessor.swift.o",
+    "swiftmodule": "/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/resource_bundle_accessor~partial.swiftmodule",
+    "swift-dependencies": "/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/resource_bundle_accessor.swiftdeps",
+    "diagnostics": "/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/resource_bundle_accessor.dia"
+  }
+}

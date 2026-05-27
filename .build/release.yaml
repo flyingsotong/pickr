@@ -1,0 +1,203 @@
+client:
+  name: basic
+  file-system: device-agnostic
+tools: {}
+targets:
+  "KeyboardShortcuts-arm64-apple-macosx-release.module": ["<KeyboardShortcuts-arm64-apple-macosx-release.module>"]
+  "PackageStructure": ["<PackageStructure>"]
+  "Pickr-arm64-apple-macosx-release.exe": ["<Pickr-arm64-apple-macosx-release.exe>"]
+  "Pickr-arm64-apple-macosx-release.module": ["<Pickr-arm64-apple-macosx-release.module>"]
+  "main": ["<Pickr-arm64-apple-macosx-release.exe>","<Pickr-arm64-apple-macosx-release.module>"]
+  "test": ["<Pickr-arm64-apple-macosx-release.exe>","<Pickr-arm64-apple-macosx-release.module>"]
+default: "main"
+nodes:
+  "/Users/alansoon/Documents/Pickr/Sources/Pickr/":
+    is-directory-structure: true
+    content-exclusion-patterns: [".git",".build"]
+commands:
+  "/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts.build/sources":
+    tool: write-auxiliary-file
+    inputs: ["<sources-file-list>","/Users/alansoon/Documents/Pickr/.build/checkouts/KeyboardShortcuts/Sources/KeyboardShortcuts/CarbonKeyboardShortcuts.swift","/Users/alansoon/Documents/Pickr/.build/checkouts/KeyboardShortcuts/Sources/KeyboardShortcuts/Key.swift","/Users/alansoon/Documents/Pickr/.build/checkouts/KeyboardShortcuts/Sources/KeyboardShortcuts/KeyboardShortcuts.swift","/Users/alansoon/Documents/Pickr/.build/checkouts/KeyboardShortcuts/Sources/KeyboardShortcuts/NSMenuItem++.swift","/Users/alansoon/Documents/Pickr/.build/checkouts/KeyboardShortcuts/Sources/KeyboardShortcuts/Name.swift","/Users/alansoon/Documents/Pickr/.build/checkouts/KeyboardShortcuts/Sources/KeyboardShortcuts/Recorder.swift","/Users/alansoon/Documents/Pickr/.build/checkouts/KeyboardShortcuts/Sources/KeyboardShortcuts/RecorderCocoa.swift","/Users/alansoon/Documents/Pickr/.build/checkouts/KeyboardShortcuts/Sources/KeyboardShortcuts/Shortcut.swift","/Users/alansoon/Documents/Pickr/.build/checkouts/KeyboardShortcuts/Sources/KeyboardShortcuts/Utilities.swift","/Users/alansoon/Documents/Pickr/.build/checkouts/KeyboardShortcuts/Sources/KeyboardShortcuts/ViewModifiers.swift","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts.build/DerivedSources/resource_bundle_accessor.swift"]
+    outputs: ["/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts.build/sources"]
+    description: "Write auxiliary file /Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts.build/sources"
+
+  "/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts_KeyboardShortcuts.bundle/Info.plist":
+    tool: copy-tool
+    inputs: ["/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts.build/Info.plist"]
+    outputs: ["/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts_KeyboardShortcuts.bundle/Info.plist"]
+    description: "Copying /Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts.build/Info.plist"
+
+  "/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts_KeyboardShortcuts.bundle/ar.lproj/Localizable.strings":
+    tool: copy-tool
+    inputs: ["/Users/alansoon/Documents/Pickr/.build/checkouts/KeyboardShortcuts/Sources/KeyboardShortcuts/Localization/ar.lproj/Localizable.strings"]
+    outputs: ["/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts_KeyboardShortcuts.bundle/ar.lproj/Localizable.strings"]
+    description: "Copying /Users/alansoon/Documents/Pickr/.build/checkouts/KeyboardShortcuts/Sources/KeyboardShortcuts/Localization/ar.lproj/Localizable.strings"
+
+  "/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts_KeyboardShortcuts.bundle/cs.lproj/Localizable.strings":
+    tool: copy-tool
+    inputs: ["/Users/alansoon/Documents/Pickr/.build/checkouts/KeyboardShortcuts/Sources/KeyboardShortcuts/Localization/cs.lproj/Localizable.strings"]
+    outputs: ["/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts_KeyboardShortcuts.bundle/cs.lproj/Localizable.strings"]
+    description: "Copying /Users/alansoon/Documents/Pickr/.build/checkouts/KeyboardShortcuts/Sources/KeyboardShortcuts/Localization/cs.lproj/Localizable.strings"
+
+  "/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts_KeyboardShortcuts.bundle/de.lproj/Localizable.strings":
+    tool: copy-tool
+    inputs: ["/Users/alansoon/Documents/Pickr/.build/checkouts/KeyboardShortcuts/Sources/KeyboardShortcuts/Localization/de.lproj/Localizable.strings"]
+    outputs: ["/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts_KeyboardShortcuts.bundle/de.lproj/Localizable.strings"]
+    description: "Copying /Users/alansoon/Documents/Pickr/.build/checkouts/KeyboardShortcuts/Sources/KeyboardShortcuts/Localization/de.lproj/Localizable.strings"
+
+  "/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts_KeyboardShortcuts.bundle/en.lproj/Localizable.strings":
+    tool: copy-tool
+    inputs: ["/Users/alansoon/Documents/Pickr/.build/checkouts/KeyboardShortcuts/Sources/KeyboardShortcuts/Localization/en.lproj/Localizable.strings"]
+    outputs: ["/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts_KeyboardShortcuts.bundle/en.lproj/Localizable.strings"]
+    description: "Copying /Users/alansoon/Documents/Pickr/.build/checkouts/KeyboardShortcuts/Sources/KeyboardShortcuts/Localization/en.lproj/Localizable.strings"
+
+  "/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts_KeyboardShortcuts.bundle/es.lproj/Localizable.strings":
+    tool: copy-tool
+    inputs: ["/Users/alansoon/Documents/Pickr/.build/checkouts/KeyboardShortcuts/Sources/KeyboardShortcuts/Localization/es.lproj/Localizable.strings"]
+    outputs: ["/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts_KeyboardShortcuts.bundle/es.lproj/Localizable.strings"]
+    description: "Copying /Users/alansoon/Documents/Pickr/.build/checkouts/KeyboardShortcuts/Sources/KeyboardShortcuts/Localization/es.lproj/Localizable.strings"
+
+  "/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts_KeyboardShortcuts.bundle/fr.lproj/Localizable.strings":
+    tool: copy-tool
+    inputs: ["/Users/alansoon/Documents/Pickr/.build/checkouts/KeyboardShortcuts/Sources/KeyboardShortcuts/Localization/fr.lproj/Localizable.strings"]
+    outputs: ["/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts_KeyboardShortcuts.bundle/fr.lproj/Localizable.strings"]
+    description: "Copying /Users/alansoon/Documents/Pickr/.build/checkouts/KeyboardShortcuts/Sources/KeyboardShortcuts/Localization/fr.lproj/Localizable.strings"
+
+  "/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts_KeyboardShortcuts.bundle/hu.lproj/Localizable.strings":
+    tool: copy-tool
+    inputs: ["/Users/alansoon/Documents/Pickr/.build/checkouts/KeyboardShortcuts/Sources/KeyboardShortcuts/Localization/hu.lproj/Localizable.strings"]
+    outputs: ["/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts_KeyboardShortcuts.bundle/hu.lproj/Localizable.strings"]
+    description: "Copying /Users/alansoon/Documents/Pickr/.build/checkouts/KeyboardShortcuts/Sources/KeyboardShortcuts/Localization/hu.lproj/Localizable.strings"
+
+  "/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts_KeyboardShortcuts.bundle/it.lproj/Localizable.strings":
+    tool: copy-tool
+    inputs: ["/Users/alansoon/Documents/Pickr/.build/checkouts/KeyboardShortcuts/Sources/KeyboardShortcuts/Localization/it.lproj/Localizable.strings"]
+    outputs: ["/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts_KeyboardShortcuts.bundle/it.lproj/Localizable.strings"]
+    description: "Copying /Users/alansoon/Documents/Pickr/.build/checkouts/KeyboardShortcuts/Sources/KeyboardShortcuts/Localization/it.lproj/Localizable.strings"
+
+  "/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts_KeyboardShortcuts.bundle/ja.lproj/Localizable.strings":
+    tool: copy-tool
+    inputs: ["/Users/alansoon/Documents/Pickr/.build/checkouts/KeyboardShortcuts/Sources/KeyboardShortcuts/Localization/ja.lproj/Localizable.strings"]
+    outputs: ["/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts_KeyboardShortcuts.bundle/ja.lproj/Localizable.strings"]
+    description: "Copying /Users/alansoon/Documents/Pickr/.build/checkouts/KeyboardShortcuts/Sources/KeyboardShortcuts/Localization/ja.lproj/Localizable.strings"
+
+  "/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts_KeyboardShortcuts.bundle/ko.lproj/Localizable.strings":
+    tool: copy-tool
+    inputs: ["/Users/alansoon/Documents/Pickr/.build/checkouts/KeyboardShortcuts/Sources/KeyboardShortcuts/Localization/ko.lproj/Localizable.strings"]
+    outputs: ["/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts_KeyboardShortcuts.bundle/ko.lproj/Localizable.strings"]
+    description: "Copying /Users/alansoon/Documents/Pickr/.build/checkouts/KeyboardShortcuts/Sources/KeyboardShortcuts/Localization/ko.lproj/Localizable.strings"
+
+  "/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts_KeyboardShortcuts.bundle/nl.lproj/Localizable.strings":
+    tool: copy-tool
+    inputs: ["/Users/alansoon/Documents/Pickr/.build/checkouts/KeyboardShortcuts/Sources/KeyboardShortcuts/Localization/nl.lproj/Localizable.strings"]
+    outputs: ["/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts_KeyboardShortcuts.bundle/nl.lproj/Localizable.strings"]
+    description: "Copying /Users/alansoon/Documents/Pickr/.build/checkouts/KeyboardShortcuts/Sources/KeyboardShortcuts/Localization/nl.lproj/Localizable.strings"
+
+  "/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts_KeyboardShortcuts.bundle/pt-br.lproj/Localizable.strings":
+    tool: copy-tool
+    inputs: ["/Users/alansoon/Documents/Pickr/.build/checkouts/KeyboardShortcuts/Sources/KeyboardShortcuts/Localization/pt-BR.lproj/Localizable.strings"]
+    outputs: ["/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts_KeyboardShortcuts.bundle/pt-br.lproj/Localizable.strings"]
+    description: "Copying /Users/alansoon/Documents/Pickr/.build/checkouts/KeyboardShortcuts/Sources/KeyboardShortcuts/Localization/pt-BR.lproj/Localizable.strings"
+
+  "/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts_KeyboardShortcuts.bundle/ru.lproj/Localizable.strings":
+    tool: copy-tool
+    inputs: ["/Users/alansoon/Documents/Pickr/.build/checkouts/KeyboardShortcuts/Sources/KeyboardShortcuts/Localization/ru.lproj/Localizable.strings"]
+    outputs: ["/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts_KeyboardShortcuts.bundle/ru.lproj/Localizable.strings"]
+    description: "Copying /Users/alansoon/Documents/Pickr/.build/checkouts/KeyboardShortcuts/Sources/KeyboardShortcuts/Localization/ru.lproj/Localizable.strings"
+
+  "/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts_KeyboardShortcuts.bundle/sk.lproj/Localizable.strings":
+    tool: copy-tool
+    inputs: ["/Users/alansoon/Documents/Pickr/.build/checkouts/KeyboardShortcuts/Sources/KeyboardShortcuts/Localization/sk.lproj/Localizable.strings"]
+    outputs: ["/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts_KeyboardShortcuts.bundle/sk.lproj/Localizable.strings"]
+    description: "Copying /Users/alansoon/Documents/Pickr/.build/checkouts/KeyboardShortcuts/Sources/KeyboardShortcuts/Localization/sk.lproj/Localizable.strings"
+
+  "/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts_KeyboardShortcuts.bundle/zh-hans.lproj/Localizable.strings":
+    tool: copy-tool
+    inputs: ["/Users/alansoon/Documents/Pickr/.build/checkouts/KeyboardShortcuts/Sources/KeyboardShortcuts/Localization/zh-Hans.lproj/Localizable.strings"]
+    outputs: ["/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts_KeyboardShortcuts.bundle/zh-hans.lproj/Localizable.strings"]
+    description: "Copying /Users/alansoon/Documents/Pickr/.build/checkouts/KeyboardShortcuts/Sources/KeyboardShortcuts/Localization/zh-Hans.lproj/Localizable.strings"
+
+  "/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts_KeyboardShortcuts.bundle/zh-tw.lproj/Localizable.strings":
+    tool: copy-tool
+    inputs: ["/Users/alansoon/Documents/Pickr/.build/checkouts/KeyboardShortcuts/Sources/KeyboardShortcuts/Localization/zh-TW.lproj/Localizable.strings"]
+    outputs: ["/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts_KeyboardShortcuts.bundle/zh-tw.lproj/Localizable.strings"]
+    description: "Copying /Users/alansoon/Documents/Pickr/.build/checkouts/KeyboardShortcuts/Sources/KeyboardShortcuts/Localization/zh-TW.lproj/Localizable.strings"
+
+  "/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/sources":
+    tool: write-auxiliary-file
+    inputs: ["<sources-file-list>","/Users/alansoon/Documents/Pickr/Sources/Pickr/AudioManager.swift","/Users/alansoon/Documents/Pickr/Sources/Pickr/Constants.swift","/Users/alansoon/Documents/Pickr/Sources/Pickr/LoginItemManager.swift","/Users/alansoon/Documents/Pickr/Sources/Pickr/MenuView.swift","/Users/alansoon/Documents/Pickr/Sources/Pickr/NicknameStore.swift","/Users/alansoon/Documents/Pickr/Sources/Pickr/OSDWindow.swift","/Users/alansoon/Documents/Pickr/Sources/Pickr/PickrApp.swift","/Users/alansoon/Documents/Pickr/Sources/Pickr/SettingsView.swift","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/DerivedSources/resource_bundle_accessor.swift"]
+    outputs: ["/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/sources"]
+    description: "Write auxiliary file /Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/sources"
+
+  "/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.product/Objects.LinkFileList":
+    tool: write-auxiliary-file
+    inputs: ["<link-file-list>","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts.build/CarbonKeyboardShortcuts.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts.build/Key.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts.build/KeyboardShortcuts.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts.build/NSMenuItem++.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts.build/Name.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts.build/Recorder.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts.build/RecorderCocoa.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts.build/Shortcut.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts.build/Utilities.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts.build/ViewModifiers.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts.build/resource_bundle_accessor.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/AudioManager.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/Constants.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/LoginItemManager.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/MenuView.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/NicknameStore.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/OSDWindow.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/PickrApp.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/SettingsView.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/resource_bundle_accessor.swift.o"]
+    outputs: ["/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.product/Objects.LinkFileList"]
+    description: "Write auxiliary file /Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.product/Objects.LinkFileList"
+
+  "/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr_Pickr.bundle/Assets.xcassets":
+    tool: copy-tool
+    inputs: ["/Users/alansoon/Documents/Pickr/Sources/Pickr/Assets.xcassets/"]
+    outputs: ["/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr_Pickr.bundle/Assets.xcassets/"]
+    description: "Copying /Users/alansoon/Documents/Pickr/Sources/Pickr/Assets.xcassets"
+
+  "/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/swift-version--58304C5D6DBC2206.txt":
+    tool: write-auxiliary-file
+    inputs: ["<swift-get-version>","/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"]
+    outputs: ["/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/swift-version--58304C5D6DBC2206.txt"]
+    always-out-of-date: "true"
+    description: "Write auxiliary file /Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/swift-version--58304C5D6DBC2206.txt"
+
+  "<KeyboardShortcuts-arm64-apple-macosx-release.module>":
+    tool: phony
+    inputs: ["/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts.build/CarbonKeyboardShortcuts.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts.build/Key.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts.build/KeyboardShortcuts.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts.build/NSMenuItem++.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts.build/Name.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts.build/Recorder.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts.build/RecorderCocoa.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts.build/Shortcut.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts.build/Utilities.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts.build/ViewModifiers.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts.build/resource_bundle_accessor.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Modules/KeyboardShortcuts.swiftmodule"]
+    outputs: ["<KeyboardShortcuts-arm64-apple-macosx-release.module>"]
+
+  "<Pickr-arm64-apple-macosx-release.exe>":
+    tool: phony
+    inputs: ["/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr"]
+    outputs: ["<Pickr-arm64-apple-macosx-release.exe>"]
+
+  "<Pickr-arm64-apple-macosx-release.module>":
+    tool: phony
+    inputs: ["/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/AudioManager.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/Constants.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/LoginItemManager.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/MenuView.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/NicknameStore.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/OSDWindow.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/PickrApp.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/SettingsView.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/resource_bundle_accessor.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Modules/Pickr.swiftmodule"]
+    outputs: ["<Pickr-arm64-apple-macosx-release.module>"]
+
+  "C.KeyboardShortcuts-arm64-apple-macosx-release.module":
+    tool: shell
+    inputs: ["/Users/alansoon/Documents/Pickr/.build/checkouts/KeyboardShortcuts/Sources/KeyboardShortcuts/CarbonKeyboardShortcuts.swift","/Users/alansoon/Documents/Pickr/.build/checkouts/KeyboardShortcuts/Sources/KeyboardShortcuts/Key.swift","/Users/alansoon/Documents/Pickr/.build/checkouts/KeyboardShortcuts/Sources/KeyboardShortcuts/KeyboardShortcuts.swift","/Users/alansoon/Documents/Pickr/.build/checkouts/KeyboardShortcuts/Sources/KeyboardShortcuts/NSMenuItem++.swift","/Users/alansoon/Documents/Pickr/.build/checkouts/KeyboardShortcuts/Sources/KeyboardShortcuts/Name.swift","/Users/alansoon/Documents/Pickr/.build/checkouts/KeyboardShortcuts/Sources/KeyboardShortcuts/Recorder.swift","/Users/alansoon/Documents/Pickr/.build/checkouts/KeyboardShortcuts/Sources/KeyboardShortcuts/RecorderCocoa.swift","/Users/alansoon/Documents/Pickr/.build/checkouts/KeyboardShortcuts/Sources/KeyboardShortcuts/Shortcut.swift","/Users/alansoon/Documents/Pickr/.build/checkouts/KeyboardShortcuts/Sources/KeyboardShortcuts/Utilities.swift","/Users/alansoon/Documents/Pickr/.build/checkouts/KeyboardShortcuts/Sources/KeyboardShortcuts/ViewModifiers.swift","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts.build/DerivedSources/resource_bundle_accessor.swift","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/swift-version--58304C5D6DBC2206.txt","<KeyboardShortcuts-arm64-apple-macosx-release.module-resources>","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts.build/sources"]
+    outputs: ["/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts.build/CarbonKeyboardShortcuts.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts.build/Key.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts.build/KeyboardShortcuts.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts.build/NSMenuItem++.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts.build/Name.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts.build/Recorder.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts.build/RecorderCocoa.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts.build/Shortcut.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts.build/Utilities.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts.build/ViewModifiers.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts.build/resource_bundle_accessor.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Modules/KeyboardShortcuts.swiftmodule"]
+    description: "Compiling Swift Module 'KeyboardShortcuts' (11 sources)"
+    args: ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc","-module-name","KeyboardShortcuts","-emit-dependencies","-emit-module","-emit-module-path","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Modules/KeyboardShortcuts.swiftmodule","-output-file-map","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts.build/output-file-map.json","-parse-as-library","-whole-module-optimization","-num-threads","8","-c","@/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts.build/sources","-I","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Modules","-target","arm64-apple-macosx10.15","-whole-module-optimization","-num-threads","8","-serialize-diagnostics","-O","-j8","-DSWIFT_PACKAGE","-DSWIFT_MODULE_RESOURCE_BUNDLE_AVAILABLE","-module-cache-path","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/ModuleCache","-parseable-output","-parse-as-library","-emit-objc-header","-emit-objc-header-path","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts.build/include/KeyboardShortcuts-Swift.h","-swift-version","5","-plugin-path","/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing","-sdk","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.4.sdk","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-I","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-L","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-g","-Xcc","-isysroot","-Xcc","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.4.sdk","-Xcc","-F","-Xcc","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-Xcc","-fPIC","-Xcc","-g","-suppress-warnings","-user-module-version","2.4.0","-package-name","keyboardshortcuts"]
+
+  "C.Pickr-arm64-apple-macosx-release.exe":
+    tool: shell
+    inputs: ["/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts.build/CarbonKeyboardShortcuts.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts.build/Key.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts.build/KeyboardShortcuts.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts.build/NSMenuItem++.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts.build/Name.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts.build/Recorder.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts.build/RecorderCocoa.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts.build/Shortcut.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts.build/Utilities.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts.build/ViewModifiers.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts.build/resource_bundle_accessor.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/AudioManager.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/Constants.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/LoginItemManager.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/MenuView.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/NicknameStore.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/OSDWindow.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/PickrApp.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/SettingsView.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/resource_bundle_accessor.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.product/Objects.LinkFileList"]
+    outputs: ["/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr"]
+    description: "Linking ./.build/arm64-apple-macosx/release/Pickr"
+    args: ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc","-L","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release","-o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr","-module-name","Pickr","-Xlinker","-no_warn_duplicate_libraries","-emit-executable","-Xlinker","-dead_strip","-Xlinker","-alias","-Xlinker","_Pickr_main","-Xlinker","_main","-Xlinker","-rpath","-Xlinker","@loader_path","@/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.product/Objects.LinkFileList","-Xlinker","-rpath","-Xlinker","/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift-6.2/macosx","-target","arm64-apple-macosx14.0","-framework","CoreAudio","-plugin-path","/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing","-sdk","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.4.sdk","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-I","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-L","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-g"]
+
+  "C.Pickr-arm64-apple-macosx-release.module":
+    tool: shell
+    inputs: ["/Users/alansoon/Documents/Pickr/Sources/Pickr/AudioManager.swift","/Users/alansoon/Documents/Pickr/Sources/Pickr/Constants.swift","/Users/alansoon/Documents/Pickr/Sources/Pickr/LoginItemManager.swift","/Users/alansoon/Documents/Pickr/Sources/Pickr/MenuView.swift","/Users/alansoon/Documents/Pickr/Sources/Pickr/NicknameStore.swift","/Users/alansoon/Documents/Pickr/Sources/Pickr/OSDWindow.swift","/Users/alansoon/Documents/Pickr/Sources/Pickr/PickrApp.swift","/Users/alansoon/Documents/Pickr/Sources/Pickr/SettingsView.swift","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/DerivedSources/resource_bundle_accessor.swift","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/swift-version--58304C5D6DBC2206.txt","<Pickr-arm64-apple-macosx-release.module-resources>","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Modules/KeyboardShortcuts.swiftmodule","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/sources"]
+    outputs: ["/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/AudioManager.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/Constants.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/LoginItemManager.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/MenuView.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/NicknameStore.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/OSDWindow.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/PickrApp.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/SettingsView.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/resource_bundle_accessor.swift.o","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Modules/Pickr.swiftmodule"]
+    description: "Compiling Swift Module 'Pickr' (9 sources)"
+    args: ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc","-module-name","Pickr","-emit-dependencies","-emit-module","-emit-module-path","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Modules/Pickr.swiftmodule","-output-file-map","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/output-file-map.json","-whole-module-optimization","-num-threads","8","-c","@/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr.build/sources","-I","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Modules","-target","arm64-apple-macosx14.0","-whole-module-optimization","-num-threads","8","-serialize-diagnostics","-O","-j8","-DSWIFT_PACKAGE","-DSWIFT_MODULE_RESOURCE_BUNDLE_AVAILABLE","-module-cache-path","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/ModuleCache","-parseable-output","-Xfrontend","-entry-point-function-name","-Xfrontend","Pickr_main","-swift-version","5","-plugin-path","/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing","-sdk","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.4.sdk","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-I","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-L","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-g","-Xcc","-isysroot","-Xcc","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.4.sdk","-Xcc","-F","-Xcc","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-Xcc","-fPIC","-Xcc","-g","-package-name","pickr"]
+
+  "KeyboardShortcuts-arm64-apple-macosx-release.module-resources":
+    tool: phony
+    inputs: ["/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts_KeyboardShortcuts.bundle/ar.lproj/Localizable.strings","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts_KeyboardShortcuts.bundle/cs.lproj/Localizable.strings","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts_KeyboardShortcuts.bundle/de.lproj/Localizable.strings","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts_KeyboardShortcuts.bundle/en.lproj/Localizable.strings","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts_KeyboardShortcuts.bundle/es.lproj/Localizable.strings","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts_KeyboardShortcuts.bundle/fr.lproj/Localizable.strings","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts_KeyboardShortcuts.bundle/hu.lproj/Localizable.strings","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts_KeyboardShortcuts.bundle/it.lproj/Localizable.strings","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts_KeyboardShortcuts.bundle/ja.lproj/Localizable.strings","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts_KeyboardShortcuts.bundle/ko.lproj/Localizable.strings","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts_KeyboardShortcuts.bundle/nl.lproj/Localizable.strings","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts_KeyboardShortcuts.bundle/pt-br.lproj/Localizable.strings","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts_KeyboardShortcuts.bundle/ru.lproj/Localizable.strings","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts_KeyboardShortcuts.bundle/sk.lproj/Localizable.strings","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts_KeyboardShortcuts.bundle/zh-hans.lproj/Localizable.strings","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts_KeyboardShortcuts.bundle/zh-tw.lproj/Localizable.strings","/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/KeyboardShortcuts_KeyboardShortcuts.bundle/Info.plist"]
+    outputs: ["<KeyboardShortcuts-arm64-apple-macosx-release.module-resources>"]
+
+  "PackageStructure":
+    tool: package-structure-tool
+    inputs: ["/Users/alansoon/Documents/Pickr/Sources/Pickr/","/Users/alansoon/Documents/Pickr/Package.swift","/Users/alansoon/Documents/Pickr/Package.resolved"]
+    outputs: ["<PackageStructure>"]
+    description: "Planning build"
+    allow-missing-inputs: true
+
+  "Pickr-arm64-apple-macosx-release.module-resources":
+    tool: phony
+    inputs: ["/Users/alansoon/Documents/Pickr/.build/arm64-apple-macosx/release/Pickr_Pickr.bundle/Assets.xcassets/"]
+    outputs: ["<Pickr-arm64-apple-macosx-release.module-resources>"]
+

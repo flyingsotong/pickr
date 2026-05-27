@@ -1,0 +1,31 @@
+name: Pickr
+options:
+  bundleIdPrefix: fractals
+packages:
+  KeyboardShortcuts:
+    url: https://github.com/sindresorhus/KeyboardShortcuts.git
+    from: 2.0.0
+targets:
+  Pickr:
+    type: application
+    platform: macOS
+    deploymentTarget: "14.0"
+    dependencies:
+      - package: KeyboardShortcuts
+    sources:
+      - path: Sources/Pickr
+    info:
+      path: Info.plist
+      properties:
+        LSUIElement: true
+        NSMicrophoneUsageDescription: "Pickr requires microphone access to display live audio metering and configure inputs."
+    settings:
+      CODE_SIGN_STYLE: Automatic
+      ENABLE_HARDENED_RUNTIME: YES
+      ENABLE_APP_SANDBOX: YES
+      ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+      CODE_SIGN_ENTITLEMENTS: Pickr.entitlements
+      DEVELOPMENT_TEAM: ZB4AZ43PV4
+      PRODUCT_BUNDLE_IDENTIFIER: fractals.pickr
+      MARKETING_VERSION: "1.0"
+      CURRENT_PROJECT_VERSION: "1"

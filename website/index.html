@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pickr — Microphone Switcher for Mac</title>
+  <meta name="description" content="Switch microphones instantly from your Mac menu bar. Live level meter, mute toggle, global shortcuts. $3, one-time." />
+  <meta property="og:title" content="Pickr — Microphone Switcher for Mac" />
+  <meta property="og:description" content="Switch microphones instantly from your Mac menu bar. $3, one-time." />
+  <meta property="og:image" content="https://fractals.sg/pickr/og.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0d0d0f;
+      --surface: #1a1a1e;
+      --surface2: #242428;
+      --border: rgba(255,255,255,0.08);
+      --accent: #007AFF;
+      --accent-dim: rgba(0,122,255,0.15);
+      --text: #f0f0f5;
+      --text-2: rgba(240,240,245,0.6);
+      --text-3: rgba(240,240,245,0.35);
+      --green: #30d158;
+      --red: #ff453a;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ───────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 0 40px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(13,13,15,0.75);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600;
+      font-size: 17px;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .nav-logo .mic-icon {
+      width: 30px; height: 30px;
+      background: var(--accent);
+      border-radius: 9px;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .nav-logo .mic-icon svg { width: 15px; height: 15px; fill: white; }
+
+    .nav-cta {
+      background: var(--accent);
+      color: white;
+      font-weight: 600;
+      font-size: 14px;
+      padding: 8px 18px;
+      border-radius: 20px;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .nav-cta:hover { opacity: 0.85; transform: scale(1.02); }
+
+    /* ── HERO ──────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      padding: 120px 24px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -200px; left: 50%;
+      transform: translateX(-50%);
+      width: 800px; height: 800px;
+      background: radial-gradient(circle, rgba(0,122,255,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--accent-dim);
+      border: 1px solid rgba(0,122,255,0.3);
+      color: #6db9ff;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 5px 14px;
+      border-radius: 20px;
+      margin-bottom: 32px;
+      letter-spacing: 0.01em;
+    }
+
+    .hero-badge::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .hero h1 {
+      font-size: clamp(44px, 7vw, 80px);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 span { color: var(--accent); }
+
+    .hero-sub {
+      font-size: clamp(17px, 2.5vw, 21px);
+      color: var(--text-2);
+      max-width: 520px;
+      margin: 0 auto 48px;
+      line-height: 1.55;
+      font-weight: 400;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--accent);
+      color: white;
+      font-weight: 600;
+      font-size: 16px;
+      padding: 14px 28px;
+      border-radius: 14px;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+    .btn-primary svg { width: 18px; height: 18px; fill: white; }
+
+    .price-tag {
+      font-size: 14px;
+      color: var(--text-2);
+      font-weight: 500;
+    }
+    .price-tag strong { color: var(--text); font-weight: 600; }
+
+    /* ── APP MOCKUP ────────────────────────────────── */
+    .mockup-wrap {
+      margin-top: 72px;
+      position: relative;
+      display: flex;
+      justify-content: center;
+    }
+
+    /* ── FEATURES ──────────────────────────────────── */
+    .features {
+      padding: 120px 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-eyebrow {
+      text-align: center;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: clamp(30px, 4vw, 44px);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      margin-bottom: 64px;
+      line-height: 1.15;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .feature-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 32px 28px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .feature-card:hover { border-color: rgba(0,122,255,0.3); transform: translateY(-2px); }
+
+    .feature-icon {
+      width: 44px; height: 44px;
+      background: var(--accent-dim);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px;
+    }
+    .feature-icon svg { width: 22px; height: 22px; fill: var(--accent); }
+
+    .feature-card h3 {
+      font-size: 17px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      letter-spacing: -0.01em;
+    }
+
+    .feature-card p {
+      font-size: 14px;
+      color: var(--text-2);
+      line-height: 1.65;
+    }
+
+    /* ── HOW IT WORKS ──────────────────────────────── */
+    .how {
+      padding: 80px 24px 120px;
+      text-align: center;
+    }
+
+    .steps {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      max-width: 700px;
+      margin: 56px auto 0;
+      flex-wrap: wrap;
+    }
+
+    .step {
+      flex: 1;
+      min-width: 160px;
+      padding: 0 24px;
+      position: relative;
+    }
+
+    .step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      top: 20px; right: -1px;
+      width: 2px; height: 2px;
+      background: var(--border);
+    }
+
+    .step-num {
+      width: 40px; height: 40px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--accent);
+      margin: 0 auto 16px;
+    }
+
+    .step h4 {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .step p {
+      font-size: 13px;
+      color: var(--text-2);
+      line-height: 1.6;
+    }
+
+    /* ── PRICING ───────────────────────────────────── */
+    .pricing {
+      padding: 80px 24px 120px;
+    }
+
+    .pricing-card {
+      max-width: 440px;
+      margin: 56px auto 0;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 48px 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pricing-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), #5ac8fa);
+    }
+
+    .price {
+      font-size: 64px;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .price sup { font-size: 28px; vertical-align: super; font-weight: 600; }
+
+    .price-note {
+      font-size: 14px;
+      color: var(--text-2);
+      margin-bottom: 36px;
+    }
+
+    .pricing-features {
+      list-style: none;
+      text-align: left;
+      margin-bottom: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .pricing-features li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 15px;
+      color: var(--text-2);
+    }
+
+    .pricing-features li::before {
+      content: '';
+      width: 18px; height: 18px;
+      background: rgba(48,209,88,0.15);
+      border-radius: 50%;
+      flex-shrink: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3 8l3.5 3.5 6.5-7' stroke='%2330d158' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-size: 14px;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    /* ── FOOTER ────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 40px 24px;
+      text-align: center;
+    }
+
+    footer p {
+      font-size: 13px;
+      color: var(--text-3);
+    }
+
+    footer a {
+      color: var(--text-2);
+      text-decoration: none;
+    }
+    footer a:hover { color: var(--text); }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-bottom: 16px;
+    }
+
+    @media (max-width: 600px) {
+      nav { padding: 0 20px; }
+      .mockup-wrap img { width: 240px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">
+    <span class="mic-icon">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <rect x="9" y="2" width="6" height="11" rx="3"/>
+        <path d="M5 10a7 7 0 0 0 14 0" stroke="white" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <line x1="12" y1="17" x2="12" y2="21" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        <line x1="9" y1="21" x2="15" y2="21" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </span>
+    Pickr
+  </a>
+  <a class="nav-cta" href="https://apps.apple.com/app/id6761876281">Get Pickr — $3</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">macOS menu bar app</div>
+
+  <h1>Your mics,<br/><span>one click away.</span></h1>
+
+  <p class="hero-sub">
+    Switch microphones instantly from the menu bar. See live input levels, mute with a shortcut, and never dig through System Settings again.
+  </p>
+
+  <div class="hero-actions">
+    <a class="btn-primary" href="https://apps.apple.com/app/id6761876281">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+      </svg>
+      Download on the App Store
+    </a>
+    <span class="price-tag"><strong>$3</strong> · one-time · no subscription</span>
+  </div>
+
+  <!-- APP SCREENSHOT -->
+  <div class="mockup-wrap">
+    <img
+      src="screenshots/pickr-popover.png"
+      alt="Pickr menu — showing input and output device lists with live level meter"
+      style="
+        width: 280px;
+        border-radius: 16px;
+        box-shadow: 0 40px 100px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.06);
+        display: block;
+      "
+    />
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <p class="section-eyebrow">Features</p>
+  <h2 class="section-title">Everything you need.<br/>Nothing you don't.</h2>
+
+  <div class="feature-grid">
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <rect x="9" y="2" width="6" height="11" rx="3"/>
+          <path d="M5 10a7 7 0 0 0 14 0" stroke="#007AFF" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <line x1="12" y1="17" x2="12" y2="21" stroke="#007AFF" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <h3>Instant switching</h3>
+      <p>Click any mic to switch. No System Settings, no digging through menus. Pickr lives in your menu bar, one click away, always.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="10" width="3" height="4" rx="1" fill="#007AFF"/>
+          <rect x="7" y="7" width="3" height="7" rx="1" fill="#007AFF"/>
+          <rect x="12" y="4" width="3" height="10" rx="1" fill="#007AFF" opacity="0.6"/>
+          <rect x="17" y="6" width="3" height="8" rx="1" fill="#007AFF" opacity="0.4"/>
+        </svg>
+      </div>
+      <h3>Live level meter</h3>
+      <p>See a real-time animated level bar on your active mic. Know instantly if you're being picked up — before your next sentence.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#007AFF" stroke-width="2.5" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9 9v3a3 3 0 0 0 5.12 2.12M15 9.34V6a3 3 0 0 0-5.94-.6"/>
+          <line x1="17" y1="16.95" x2="5" y2="5" stroke-linecap="round"/>
+          <path d="M8 21h8M12 17v4M4.22 12a8 8 0 0 0 11.29 5.58" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <h3>Global mute shortcut</h3>
+      <p>Assign any keyboard shortcut to mute your mic system-wide. Works across all apps — calls, podcasts, streams, everything.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M11 5L6 9H2v6h4l5 4V5z" fill="#007AFF"/>
+          <path d="M15.54 8.46a5 5 0 0 1 0 7.07M19.07 4.93a10 10 0 0 1 0 14.14" stroke="#007AFF" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <h3>Input &amp; output</h3>
+      <p>Manage both microphones and speakers from a single menu. Perfect for switching between headphones, monitors, and AirPods.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#007AFF" stroke-width="2.5" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h3>Custom nicknames</h3>
+      <p>Rename any device to something human. "JBL Quantum Stream 360 USB" becomes "Desk Mic". Your names, not the hardware's.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#007AFF" stroke-width="2.5" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="10"/>
+          <polyline points="12 6 12 12 16 14" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <h3>Launch at login</h3>
+      <p>Enable once and forget it. Pickr starts silently with macOS — no Dock icon, no splash screen, just your mics ready to go.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how">
+  <p class="section-eyebrow">Setup</p>
+  <h2 class="section-title">Up and running in 30 seconds.</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h4>Download</h4>
+      <p>Get Pickr from the Mac App Store for $3, one time.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h4>Allow microphone</h4>
+      <p>Grant mic access once so Pickr can show the live level meter.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h4>Pick your mic</h4>
+      <p>Click the menu bar icon and select your device. Done.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <p class="section-eyebrow">Pricing</p>
+  <h2 class="section-title">Pay once. Use forever.</h2>
+
+  <div class="pricing-card">
+    <div class="price"><sup>$</sup>3</div>
+    <p class="price-note">One-time purchase · No subscription · Free updates</p>
+
+    <ul class="pricing-features">
+      <li>Instant mic &amp; speaker switching</li>
+      <li>Live input level meter</li>
+      <li>Global mute keyboard shortcut</li>
+      <li>Custom device nicknames</li>
+      <li>OSD mute indicator</li>
+      <li>Launch at login</li>
+      <li>macOS 14 Sonoma &amp; later</li>
+    </ul>
+
+    <a class="btn-primary" href="https://apps.apple.com/app/id6761876281" style="width:100%;justify-content:center;">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" fill="white"/>
+      </svg>
+      Get Pickr on the App Store
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-links">
+    <a href="mailto:alan@fractals.sg">Support</a>
+    <a href="https://apps.apple.com/app/id6761876281">App Store</a>
+    <a href="https://fractals.sg">Fractals</a>
+  </div>
+  <p>© 2026 Fractals Collective · Made in Aldinga, Australia</p>
+</footer>
+
+</body>
+</html>
