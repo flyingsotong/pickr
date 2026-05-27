@@ -1,4 +1,3 @@
-# pickr
 # Pickr - Commercial Release Context
 
 ## Overview
