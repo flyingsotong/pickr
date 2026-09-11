@@ -68,10 +68,7 @@ struct OSDView: View {
                 .font(.system(size: 24, weight: .semibold, design: .rounded))
         }
         .frame(width: 220, height: 220)
-        .background(
-            VisualEffectView(material: .hudWindow, blendingMode: .behindWindow)
-                .clipShape(RoundedRectangle(cornerRadius: 32, style: .continuous))
-        )
+        .pickrGlassSurface(in: RoundedRectangle(cornerRadius: 32, style: .continuous))
     }
 }
 

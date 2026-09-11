@@ -173,32 +173,33 @@ struct DeviceRow: View {
             onSelect() 
         } }
         .animation(.easeInOut(duration: 0.1), value: isHovered)
+        .animation(.easeInOut(duration: 0.1), value: isEditing)
     }
 
+    /// Only the applicable control is built, instead of three stacked at varying opacity.
+    /// A view at `.opacity(0)` still receives hits, so the previous version left an invisible
+    /// "confirm rename" button covering the trailing edge of every row — tapping near the right
+    /// side of a device row fired rename instead of selecting the device.
     private var trailingIcon: some View {
-        ZStack {
-            // Confirm rename (editing mode)
-            Button(action: commitRename) {
-                Image(systemName: "checkmark.circle.fill")
+        Group {
+            if isEditing {
+                Button(action: commitRename) {
+                    Image(systemName: "checkmark.circle.fill")
+                        .foregroundStyle(Color.accentColor)
+                }
+                .buttonStyle(.plain)
+            } else if isHovered {
+                Button(action: startEditing) {
+                    Image(systemName: "pencil")
+                        .font(.system(size: 11))
+                        .foregroundStyle(.tertiary)
+                }
+                .buttonStyle(.plain)
+            } else if isActive {
+                Image(systemName: "checkmark")
+                    .font(.system(size: 11, weight: .bold))
                     .foregroundStyle(Color.accentColor)
             }
-            .buttonStyle(.plain)
-            .opacity(isEditing ? 1 : 0)
-
-            // Rename hint (hover, not editing)
-            Button(action: startEditing) {
-                Image(systemName: "pencil")
-                    .font(.system(size: 11))
-                    .foregroundStyle(.tertiary)
-            }
-            .buttonStyle(.plain)
-            .opacity(!isEditing && isHovered ? 1 : 0)
-
-            // Active checkmark (not hovering, not editing)
-            Image(systemName: "checkmark")
-                .font(.system(size: 11, weight: .bold))
-                .foregroundStyle(Color.accentColor)
-                .opacity(isActive && !isHovered && !isEditing ? 1 : 0)
         }
         .frame(width: 16, height: 16)
     }
