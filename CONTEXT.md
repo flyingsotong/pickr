@@ -119,6 +119,18 @@ caching an old copy:
 /System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -f /Applications/Pickr.app
 ```
 
+### Delivering a build
+
+A build that only lands in DerivedData is not delivered. Every build ends by installing into
+`/Applications` and relaunching, which is what `~/bin/deploy-macos-app.sh <path-to-.app> Pickr` does
+(canonical source: the `macos-xcode-build-from-vps` skill → `scripts/deploy-macos-app.sh`).
+
+The order is not optional: kill the running copy and confirm it died, then `rm -rf` and `cp -R` into
+`/Applications`, then `lsregister -f`, then `open -a /Applications/Pickr.app`, then confirm the
+process is alive and print its version. **`open -a` re-uses a running instance rather than
+relaunching it**, so skipping the kill leaves the previous binary serving the menu bar and makes a
+correct fix look like it did nothing.
+
 ### Toolchain: Xcode 26 does not run on macOS 27
 
 Xcode enforces an operating-system compatibility check at launch. On macOS 27, Xcode 26.6 refuses to

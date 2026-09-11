@@ -14,6 +14,10 @@ metering and a system-wide microphone mute.
 
 ## Building
 
+Both paths end with the app installed and running — `~/bin/deploy-macos-app.sh <path-to-.app> Pickr`
+does the copy into `/Applications`, the LaunchServices refresh and the relaunch. A build left in
+DerivedData is not a delivered build.
+
 ### Xcode project (use this for releases, and for anything touching App Intents)
 
 ```bash
