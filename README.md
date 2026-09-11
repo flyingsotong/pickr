@@ -8,8 +8,8 @@ metering and a system-wide microphone mute.
 
 ## Requirements
 
-- macOS 14 or later
-- Xcode 15 or later (26+ to build against the macOS 27 SDK)
+- macOS 14 or later for the app itself. To *build* on macOS 27 you need Xcode 27 (Release Candidate
+  or GM) — Xcode 26 refuses to launch on macOS 27.
 - [XcodeGen](https://github.com/yonaskolb/XcodeGen) — `brew install xcodegen`
 
 ## Building

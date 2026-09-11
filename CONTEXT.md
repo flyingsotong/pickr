@@ -119,6 +119,34 @@ caching an old copy:
 /System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -f /Applications/Pickr.app
 ```
 
+### Toolchain: Xcode 26 does not run on macOS 27
+
+Xcode enforces an operating-system compatibility check at launch. On macOS 27, Xcode 26.6 refuses to
+open with *"The version of Xcode installed on this Mac is not compatible with macOS Golden Gate."* The
+App Store copy lags too — Xcode 27 reaches the App Store alongside macOS 27 itself.
+
+Use the **Xcode 27 Release Candidate** from
+[developer.apple.com/download](https://developer.apple.com/download/all/). Apple opened App Store
+submissions built with it on 9 September 2026, ahead of the macOS 27 release, so an RC build can be
+uploaded for review — a **beta** build cannot (Organizer rejects it with `90301`, "Apple is not
+currently accepting applications built with this version of Xcode").
+
+Worth knowing: `xcodebuild` from Xcode 26.6 *does* still run on macOS 27 even though the GUI does not,
+so a command-line archive with 26.6 remains possible in a pinch. The RC is the supported path.
+
+### Check which toolchain actually built an archive
+
+Do not trust which Xcode you think you used. Read the SDK out of the archived binary:
+
+```bash
+vtool -show-build ~/Library/Developer/Xcode/Archives/<date>/<name>.xcarchive/Products/Applications/Pickr.app/Contents/MacOS/Pickr | grep -E "platform|minos|sdk"
+# sdk 26.5 -> Xcode 26.6, acceptable
+# sdk 27.0 -> macOS 27 SDK
+```
+
+The archive's own `Info.plist` also records every distribution attempt — `preparationEvent` (did
+signing and provisioning succeed?) and `uploadEvent` (the exact rejection, code and timestamp).
+
 ### Submission checklist
 1. **Version**: `project.yml` is the single source. Bump `MARKETING_VERSION` and `CURRENT_PROJECT_VERSION` there, then run `xcodegen generate`.
 2. **Archive**: use `Product > Archive` in Xcode. Archives are universal by design (see below).
@@ -147,9 +175,11 @@ want: the deployment target is macOS 14, and Intel Macs still run 14 and 15, so 
 serves real users. A local `-destination "platform=macOS"` build is arm64-only, so don't be alarmed
 that the DerivedData product differs from the archive.
 
-macOS 27 is the last release carrying Rosetta, and its Settings pane now lists Intel-only apps as
-incompatible with macOS 28. That applies to apps with no native slice. Pickr has a native arm64
-slice, so it is not affected and there is no reason to strip the Intel slice.
+macOS 27 is Apple silicon only — per Apple's own release announcement, **macOS 26 is the final
+release supporting Intel Macs and Rosetta**. That does not change the decision above: Intel users on
+macOS 14 through 26 are a real audience, so keep the x86_64 slice. Apple explicitly offers arm64-only
+as an option ("set the Xcode build architecture to arm64 only") for anyone who wants to drop them;
+Pickr does not need to.
 
 ---
 
