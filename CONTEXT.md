@@ -120,11 +120,26 @@ caching an old copy:
 ```
 
 ### Submission checklist
-1. **Version**: `Info.plist` holds the shipping version (`CFBundleShortVersionString`); `project.yml` holds `MARKETING_VERSION`. Bump both, then run `xcodegen generate` so `project.pbxproj` matches.
+1. **Version**: `project.yml` is the single source. Bump `MARKETING_VERSION` and `CURRENT_PROJECT_VERSION` there, then run `xcodegen generate`.
 2. **Archive**: use `Product > Archive` in Xcode. Confirm the archive is arm64 (see below).
-3. **Privacy**: ensure `NSMicrophoneUsageDescription` in `Info.plist` is up to date.
+3. **Privacy**: `NSMicrophoneUsageDescription` is declared in `project.yml`, not in `Info.plist` (see below).
 4. **Sandbox**: ensure `Pickr.entitlements` includes the audio input capability.
 5. **Assets**: all icons are hosted in `Assets.xcassets` (1024px down to 16px).
+
+### Info.plist is generated — never hand-edit it
+
+`xcodegen generate` **rewrites `Info.plist` from the `info.properties` block in `project.yml`**.
+Anything not declared there is silently dropped from the built app, and any hand-edit is lost on the
+next generation. This was confirmed the hard way: a version bump applied directly to `Info.plist`
+reverted to 1.0 the moment `xcodegen` ran, and `LSMinimumSystemVersion` plus
+`LSApplicationCategoryType` had been missing from generated builds because they were never declared
+in `project.yml`. Both are now declared, and the version keys resolve from
+`$(MARKETING_VERSION)` / `$(CURRENT_PROJECT_VERSION)` so there is only one place to bump.
+
+The microphone usage string previously disagreed between `Info.plist` and `project.yml`. The
+project.yml block now carries the `Info.plist` wording ("Pickr displays a live level meter so you can
+see your mic is active."), because that is the shorter, plainer one. Confirm against what actually
+shipped if a change there would matter for App Review.
 
 ### Architecture note
 The built binary is arm64-only, which is what macOS 27 and 28 expect. macOS 27 is the final release

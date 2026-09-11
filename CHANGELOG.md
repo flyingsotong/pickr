@@ -14,6 +14,9 @@ All notable changes to Pickr. Version numbers match the Mac App Store release.
 - `AudioManager` is now a shared instance, because a system-launched intent must reach the same state object the panel renders from.
 - Version bumped to 1.1 (build 2).
 
+### Fixed
+- `Info.plist` is now generated completely from `project.yml`. Running `xcodegen generate` had been resetting the version to 1.0/1 and silently dropping `LSMinimumSystemVersion` and `LSApplicationCategoryType`, because they were never declared in the `info.properties` block. Version keys now resolve from `$(MARKETING_VERSION)` / `$(CURRENT_PROJECT_VERSION)`, so there is a single place to bump.
+
 ### Documentation
 - Corrected the metering description: it has always used `AVAudioRecorder` with metering enabled, not an `AVAudioEngine` tap.
 - Corrected the toolchain description: the Xcode project builds in Swift 5 language mode, not Swift 6 with strict concurrency.

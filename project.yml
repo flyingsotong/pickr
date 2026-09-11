@@ -16,9 +16,17 @@ targets:
       - path: Sources/Pickr
     info:
       path: Info.plist
+      # XcodeGen REGENERATES Info.plist from this block on every `xcodegen generate`.
+      # Anything not declared here is silently dropped from the built app — that is how
+      # LSMinimumSystemVersion and LSApplicationCategoryType went missing, and why a
+      # hand-edited version number in Info.plist does not survive. Declare it all here.
       properties:
         LSUIElement: true
-        NSMicrophoneUsageDescription: "Pickr requires microphone access to display live audio metering and configure inputs."
+        LSMinimumSystemVersion: "14.0"
+        LSApplicationCategoryType: public.app-category.utilities
+        CFBundleShortVersionString: "$(MARKETING_VERSION)"
+        CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
+        NSMicrophoneUsageDescription: "Pickr displays a live level meter so you can see your mic is active."
     settings:
       CODE_SIGN_STYLE: Automatic
       ENABLE_HARDENED_RUNTIME: YES

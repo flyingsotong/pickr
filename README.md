@@ -59,11 +59,15 @@ when the hardware reports a name nobody can read.
 
 ## Releasing
 
-1. Bump `CFBundleShortVersionString` and `CFBundleVersion` in `Info.plist`
-2. Bump `MARKETING_VERSION` and `CURRENT_PROJECT_VERSION` in `project.yml`
-3. `xcodegen generate`
-4. Update `CHANGELOG.md` and the submission copy in `CONTEXT.md`
-5. `Product > Archive` in Xcode
+1. Bump `MARKETING_VERSION` and `CURRENT_PROJECT_VERSION` in `project.yml`
+2. `xcodegen generate`
+3. Update `CHANGELOG.md` and the submission copy in `CONTEXT.md`
+4. `Product > Archive` in Xcode
+
+`Info.plist` is **generated** by `xcodegen generate` from the `info.properties` block in
+`project.yml`. It is a build artifact — hand-editing it does not survive the next generation, and
+anything not declared in that block will be missing from the shipped app. Add new keys to
+`project.yml`, not to the plist.
 
 ## License
 
