@@ -39,6 +39,12 @@ class AudioManager: ObservableObject {
         KeyboardShortcuts.onKeyDown(for: .toggleMute) { [weak self] in
             self?.toggleMute()
         }
+        KeyboardShortcuts.onKeyDown(for: .nextInput) { [weak self] in
+            self?.selectNextInput()
+        }
+        KeyboardShortcuts.onKeyDown(for: .nextOutput) { [weak self] in
+            self?.selectNextOutput()
+        }
     }
 
     func refresh() {
@@ -68,6 +74,30 @@ class AudioManager: ObservableObject {
         isMuted.toggle()
         applyMuteState()
         OSDController.shared.show(isMuted: isMuted)
+    }
+
+    // MARK: - Cycling
+
+    /// Cycle to the next device in the list, wrapping at the end. A hotkey has no visible target to
+    /// aim at, so wrapping is the least surprising behaviour and the menu bar label is the feedback.
+    func selectNextInput() {
+        if let next = Self.device(after: defaultDeviceID, in: devices) {
+            setDefault(next)
+        }
+    }
+
+    func selectNextOutput() {
+        if let next = Self.device(after: defaultOutputDeviceID, in: outputDevices) {
+            setDefaultOutput(next)
+        }
+    }
+
+    /// The device after `current`, or the first one when `current` is no longer in the list —
+    /// which happens between a device being unplugged and the next refresh.
+    private static func device(after current: AudioDeviceID, in list: [AudioDevice]) -> AudioDeviceID? {
+        guard !list.isEmpty else { return nil }
+        guard let index = list.firstIndex(where: { $0.id == current }) else { return list.first?.id }
+        return list[(index + 1) % list.count].id
     }
 
     // MARK: - Level Metering

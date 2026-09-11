@@ -3,6 +3,7 @@ import KeyboardShortcuts
 
 struct SettingsView: View {
     @State private var isLaunchAtLoginEnabled = LoginItemManager.isEnabled
+    @AppStorage("menuBarLabel") private var menuBarLabel: MenuBarLabelMode = .input
     private let appStoreID = "6761876281"
 
     var body: some View {
@@ -13,26 +14,56 @@ struct SettingsView: View {
                     Spacer()
                     KeyboardShortcuts.Recorder(for: .toggleMute)
                 }
-                
+
+                HStack {
+                    Text("Next Input")
+                    Spacer()
+                    KeyboardShortcuts.Recorder(for: .nextInput)
+                }
+
+                HStack {
+                    Text("Next Output")
+                    Spacer()
+                    KeyboardShortcuts.Recorder(for: .nextOutput)
+                }
+
                 Toggle("Launch at Login", isOn: Binding(
                     get: { isLaunchAtLoginEnabled },
-                    set: { 
+                    set: {
                         LoginItemManager.isEnabled = $0
-                        isLaunchAtLoginEnabled = LoginItemManager.isEnabled 
+                        isLaunchAtLoginEnabled = LoginItemManager.isEnabled
                     }
                 ))
                 .padding(.top, 8)
-                
+
             } header: {
                 Text("System Control")
             } footer: {
-                Text("Pickr's global shortcut acts system-wide. You can mute your active microphone natively from any application without opening the menu.\n\nPickr also works with Siri and the Shortcuts app, so you can switch devices or toggle mute from a voice command or an automation.")
+                Text("These shortcuts act system-wide. Cycle through your devices without opening the menu, or mute your active microphone from any application.\n\nPickr also works with Siri and the Shortcuts app, so you can switch devices or toggle mute from a voice command or an automation.")
                     .foregroundStyle(.tertiary)
                     .font(.caption)
                     .padding(.top, 4)
                     .padding(.bottom, 8)
             }
-            
+
+            Section {
+                Picker("Show", selection: $menuBarLabel) {
+                    ForEach(MenuBarLabelMode.allCases) { mode in
+                        Text(mode.title).tag(mode)
+                    }
+                }
+                .pickerStyle(.menu)
+
+            } header: {
+                Text("Menu Bar")
+            } footer: {
+                Text("The glyph always reflects whether your microphone is muted. Naming the device beside it is also the only confirmation you get when a shortcut or a Siri phrase changes it.")
+                    .foregroundStyle(.tertiary)
+                    .font(.caption)
+                    .padding(.top, 4)
+                    .padding(.bottom, 8)
+            }
+
             Section {
                 HStack {
                     Text("Email Feedback")
@@ -77,6 +108,6 @@ struct SettingsView: View {
             .padding(.top, 16)
         }
         .padding(24)
-        .frame(width: 450, height: 390)
+        .frame(width: 450, height: 500)
     }
 }

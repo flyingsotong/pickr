@@ -81,9 +81,9 @@ Everything else works exactly as before.
    - Intents re-resolve the target device at run time, so a device that has been unplugged since the shortcut was written reports back instead of silently failing.
    - Exactly one `AppShortcutsProvider` (`PickrAppShortcuts`) — more than one is a build-time error.
 
-4. **UI architecture (`MenuView.swift`)**
-   - Implements a split input/output hardware grid.
-   - Designed for high-fidelity dark/light mode switching with native haptic feedback (`NSHapticFeedbackManager`).
+4. **UI architecture (`MenuView.swift`, `PickrApp.swift`)**
+   - The panel implements a split input/output hardware grid, designed for high-fidelity dark/light mode switching with native haptic feedback (`NSHapticFeedbackManager`).
+   - `MenuBarLabel` renders the menu bar item and honours the `menuBarLabel` preference (`iconOnly`, `input`, `output`), persisted with `@AppStorage`. The mute glyph is always present; the device name is optional.
 
 5. **Settings engine (`SettingsView.swift`)**
    - Native macOS preferences pane (`Settings` scene).

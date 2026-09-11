@@ -5,6 +5,8 @@ All notable changes to Pickr. Version numbers match the Mac App Store release.
 ## 1.1 — unreleased
 
 ### Added
+- **Global shortcuts for cycling devices.** Next input and next output join toggle mute, each configurable in Settings. A hotkey has no visible target to aim at, so cycling wraps at the end of the list, and the menu bar label is the confirmation.
+- **Menu bar label options.** The item can show the mute glyph alone, or the glyph with either the input or the output device name. Naming the device is also the only feedback you get when a shortcut or a Siri phrase changes it, without a panel open.
 - **Siri and Shortcuts support via App Intents.** Three actions are now exposed to the system: switch audio input, switch audio output, and toggle microphone mute. Each can be driven from the Shortcuts app, from Siri, or from any automation that can run a shortcut. Devices are offered by name, and custom nicknames resolve, so "switch input to Podcast Mic" works even when the underlying hardware is called something unreadable.
 - App shortcuts for the three intents, so the phrases work in Siri without the user building a shortcut first.
 - A note in Settings explaining that the app is now automatable.
