@@ -121,7 +121,7 @@ caching an old copy:
 
 ### Submission checklist
 1. **Version**: `project.yml` is the single source. Bump `MARKETING_VERSION` and `CURRENT_PROJECT_VERSION` there, then run `xcodegen generate`.
-2. **Archive**: use `Product > Archive` in Xcode. Confirm the archive is arm64 (see below).
+2. **Archive**: use `Product > Archive` in Xcode. Archives are universal by design (see below).
 3. **Privacy**: `NSMicrophoneUsageDescription` is declared in `project.yml`, not in `Info.plist` (see below).
 4. **Sandbox**: ensure `Pickr.entitlements` includes the audio input capability.
 5. **Assets**: all icons are hosted in `Assets.xcassets` (1024px down to 16px).
@@ -142,9 +142,14 @@ see your mic is active."), because that is the shorter, plainer one. Confirm aga
 shipped if a change there would matter for App Review.
 
 ### Architecture note
-The built binary is arm64-only, which is what macOS 27 and 28 expect. macOS 27 is the final release
-with Rosetta, and its Settings pane now lists Intel-only apps as incompatible with macOS 28 — so
-confirm the release archive does not quietly pick up an x86_64 slice.
+Archives are **universal** — `ARCHS = arm64 x86_64` with `ONLY_ACTIVE_ARCH = NO`. That is what we
+want: the deployment target is macOS 14, and Intel Macs still run 14 and 15, so the x86_64 slice
+serves real users. A local `-destination "platform=macOS"` build is arm64-only, so don't be alarmed
+that the DerivedData product differs from the archive.
+
+macOS 27 is the last release carrying Rosetta, and its Settings pane now lists Intel-only apps as
+incompatible with macOS 28. That applies to apps with no native slice. Pickr has a native arm64
+slice, so it is not affected and there is no reason to strip the Intel slice.
 
 ---
 
