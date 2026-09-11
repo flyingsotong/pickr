@@ -18,6 +18,8 @@ All notable changes to Pickr. Version numbers match the Mac App Store release.
 - Version bumped to 1.1 (build 2).
 
 ### Fixed
+- **Settings opened behind other windows.** Pickr is an accessory app, so it is usually not the active application, and `SettingsLink` showed the window underneath whatever you were working in. The Settings row now activates the app before opening it.
+- **The Settings pane could not be resized or scrolled.** The content was pinned to a fixed 450×500 frame, so anything past that boundary was unreachable. Fixed width, minimum height, and the window scrolls now.
 - Device names in the panel wrapped awkwardly, and truncating them to one line lost the last word ("MacBook Pro Spe…"). They are now trimmed of vendor boilerplate (`AudioHardware.trimmedName`) and allowed to wrap across at most two lines, so a longer name reads in full.
 - The `Show` picker in Settings drew its title outside the content column, leaving it visibly left of every other row label. It is now a hand-rolled label row matching the rows above, and both section footers wrap instead of truncating mid-sentence.
 - Device rows stacked three trailing controls at varying opacity. A view at `.opacity(0)` still receives hits, so an invisible "confirm rename" button was covering the trailing edge of every row — tapping near the right side of a device fired rename instead of selecting it. Only the applicable control is built now.

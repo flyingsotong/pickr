@@ -1,9 +1,11 @@
 import SwiftUI
+import AppKit
 import KeyboardShortcuts
 
 struct MenuView: View {
     @EnvironmentObject var audio: AudioManager
     @EnvironmentObject var nicknames: NicknameStore
+    @Environment(\.openSettings) private var openSettings
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -81,13 +83,13 @@ struct MenuView: View {
             } else {
                 UnavailableMuteRow()
             }
-            SettingsLink {
-                LinkRow(label: "Settings", icon: "gearshape")
+            // Not `SettingsLink`: a menu-bar app is an accessory, so it is usually not the active
+            // application, and the Settings window opened behind whatever the user was working in.
+            // Activate first, then open — that is what brings it to the front.
+            ActionRow(label: "Settings", icon: "gearshape") {
+                NSApp.activate()
+                openSettings()
             }
-            .buttonStyle(.plain)
-            .padding(.horizontal, 4)
-            .frame(maxWidth: .infinity)
-            .contentShape(Rectangle())
             Divider().padding(.vertical, 4)
             ActionRow(label: "Quit Pickr", icon: "xmark.circle") {
                 NSApplication.shared.terminate(nil)
@@ -347,28 +349,3 @@ struct ActionRow: View {
     }
 }
 
-struct LinkRow: View {
-    let label: String
-    let icon: String
-    @State private var isHovered = false
-
-    var body: some View {
-        HStack(spacing: 10) {
-            Image(systemName: icon)
-                .font(.system(size: 13))
-                .foregroundStyle(.secondary)
-                .frame(width: 18)
-            Text(label)
-                .font(.system(size: 13))
-            Spacer()
-        }
-        .padding(.horizontal, 12)
-        .padding(.vertical, 7)
-        .background(
-            RoundedRectangle(cornerRadius: 6)
-                .fill(isHovered ? Color(NSColor.selectedContentBackgroundColor).opacity(0.12) : .clear)
-        )
-        .onHover { isHovered = $0 }
-        .animation(.easeInOut(duration: 0.1), value: isHovered)
-    }
-}

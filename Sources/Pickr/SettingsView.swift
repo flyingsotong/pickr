@@ -119,6 +119,9 @@ struct SettingsView: View {
             .padding(.top, 16)
         }
         .padding(24)
-        .frame(width: 450, height: 500)
+        // Fixed width, but deliberately NOT a fixed height. Pinning the height made the pane
+        // non-resizable and unable to scroll, so anything past the frame was unreachable.
+        .frame(width: 470)
+        .frame(minHeight: 460)
     }
 }
