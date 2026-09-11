@@ -145,8 +145,9 @@ struct DeviceRow: View {
             } else {
                 Text(displayName)
                     .font(.system(size: 13, weight: isActive ? .medium : .regular))
-                    .lineLimit(1)
+                    .lineLimit(2)
                     .truncationMode(.tail)
+                    .fixedSize(horizontal: false, vertical: true)
             }
 
             Spacer()

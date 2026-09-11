@@ -42,17 +42,27 @@ struct SettingsView: View {
                 Text("These shortcuts act system-wide. Cycle through your devices without opening the menu, or mute your active microphone from any application.\n\nPickr also works with Siri and the Shortcuts app, so you can switch devices or toggle mute from a voice command or an automation.")
                     .foregroundStyle(.tertiary)
                     .font(.caption)
+                    .fixedSize(horizontal: false, vertical: true)
                     .padding(.top, 4)
                     .padding(.bottom, 8)
             }
 
             Section {
-                Picker("Show", selection: $menuBarLabel) {
-                    ForEach(MenuBarLabelMode.allCases) { mode in
-                        Text(mode.title).tag(mode)
+                // Hand-rolled label row rather than `Picker("Show", …)`: a titled Picker in a
+                // macOS Form renders its label outside the content column, which left it visibly
+                // left of the labels in the sections above.
+                HStack {
+                    Text("Show")
+                    Spacer()
+                    Picker("", selection: $menuBarLabel) {
+                        ForEach(MenuBarLabelMode.allCases) { mode in
+                            Text(mode.title).tag(mode)
+                        }
                     }
+                    .pickerStyle(.menu)
+                    .labelsHidden()
+                    .fixedSize()
                 }
-                .pickerStyle(.menu)
 
             } header: {
                 Text("Menu Bar")
@@ -60,6 +70,7 @@ struct SettingsView: View {
                 Text("The glyph always reflects whether your microphone is muted. Naming the device beside it is also the only confirmation you get when a shortcut or a Siri phrase changes it.")
                     .foregroundStyle(.tertiary)
                     .font(.caption)
+                    .fixedSize(horizontal: false, vertical: true)
                     .padding(.top, 4)
                     .padding(.bottom, 8)
             }
