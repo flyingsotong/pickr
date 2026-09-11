@@ -43,40 +43,21 @@ struct MenuBarLabel: View {
             case .iconOnly:
                 EmptyView()
             case .input:
-                deviceLabel(for: audio.defaultDeviceID, in: audio.devices, fallback: "Mic")
+                deviceLabel(for: audio.defaultDeviceID, in: audio.devices)
             case .output:
-                deviceLabel(for: audio.defaultOutputDeviceID, in: audio.outputDevices, fallback: "Speaker")
+                deviceLabel(for: audio.defaultOutputDeviceID, in: audio.outputDevices)
             }
         }
     }
 
     @ViewBuilder
-    private func deviceLabel(for deviceID: AudioDeviceID, in list: [AudioDevice], fallback: String) -> some View {
-        if let name = shortName(for: deviceID, in: list, fallback: fallback) {
-            Text(name)
+    private func deviceLabel(for deviceID: AudioDeviceID, in list: [AudioDevice]) -> some View {
+        if let device = list.first(where: { $0.id == deviceID }) {
+            Text(nicknames.nickname(for: device.name) ?? AudioHardware.trimmedName(for: device.name))
                 .font(.system(size: 12, weight: .medium))
                 .lineLimit(1)
                 .truncationMode(.tail)
                 .frame(maxWidth: 100)
         }
-    }
-
-    /// A nickname if one is set, otherwise the raw name with vendor boilerplate trimmed, so the
-    /// menu bar reads "Desk Mic" rather than "Logitech USB Headset H340".
-    private func shortName(for deviceID: AudioDeviceID, in list: [AudioDevice], fallback: String) -> String? {
-        guard let device = list.first(where: { $0.id == deviceID }) else { return nil }
-
-        if let nickname = nicknames.nickname(for: device.name) {
-            return nickname
-        }
-
-        var name = device.name
-        let boilerplates = ["Microphone", "Mic", "Built-in", "Audio", "Device"]
-        for word in boilerplates {
-            name = name.replacingOccurrences(of: word, with: "", options: .caseInsensitive)
-        }
-
-        name = name.trimmingCharacters(in: .whitespacesAndNewlines)
-        return name.isEmpty ? fallback : name
     }
 }

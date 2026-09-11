@@ -18,6 +18,7 @@ All notable changes to Pickr. Version numbers match the Mac App Store release.
 - Version bumped to 1.1 (build 2).
 
 ### Fixed
+- Device names in the panel wrapped onto two lines, doubling the height of those rows and making them inconsistent with the single-line rows beneath. Names are now trimmed of vendor boilerplate (`AudioHardware.trimmedName`) and held to one line with tail truncation — the same treatment the menu bar label already applied, so "MacBook Pro Microphone" reads as "MacBook Pro" everywhere.
 - Device rows stacked three trailing controls at varying opacity. A view at `.opacity(0)` still receives hits, so an invisible "confirm rename" button was covering the trailing edge of every row — tapping near the right side of a device fired rename instead of selecting it. Only the applicable control is built now.
 - `Info.plist` is now generated completely from `project.yml`. Running `xcodegen generate` had been resetting the version to 1.0/1 and silently dropping `LSMinimumSystemVersion` and `LSApplicationCategoryType`, because they were never declared in the `info.properties` block. Version keys now resolve from `$(MARKETING_VERSION)` / `$(CURRENT_PROJECT_VERSION)`, so there is a single place to bump.
 

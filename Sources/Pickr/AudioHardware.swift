@@ -185,4 +185,18 @@ enum AudioHardware {
         guard let alias, !alias.isEmpty else { return rawName }
         return alias
     }
+
+    /// A raw device name with vendor boilerplate trimmed, so Pickr's own surfaces read
+    /// "MacBook Pro" rather than "MacBook Pro Microphone".
+    ///
+    /// Nicknames are deliberately *not* applied here: the caller owns the nickname store and
+    /// therefore the SwiftUI observation that makes a rename re-render. Callers compose the two.
+    static func trimmedName(for rawName: String) -> String {
+        var name = rawName
+        for word in ["Microphone", "Mic", "Built-in", "Audio", "Device"] {
+            name = name.replacingOccurrences(of: word, with: "", options: .caseInsensitive)
+        }
+        name = name.trimmingCharacters(in: .whitespacesAndNewlines)
+        return name.isEmpty ? rawName : name
+    }
 }

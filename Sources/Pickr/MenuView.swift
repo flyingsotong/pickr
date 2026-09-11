@@ -127,7 +127,7 @@ struct DeviceRow: View {
     @State private var isEditing = false
     @State private var editText = ""
 
-    var displayName: String { nickname ?? device.name }
+    var displayName: String { nickname ?? AudioHardware.trimmedName(for: device.name) }
 
     var body: some View {
         HStack(spacing: 10) {
@@ -145,6 +145,8 @@ struct DeviceRow: View {
             } else {
                 Text(displayName)
                     .font(.system(size: 13, weight: isActive ? .medium : .regular))
+                    .lineLimit(1)
+                    .truncationMode(.tail)
             }
 
             Spacer()
