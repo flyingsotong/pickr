@@ -10,11 +10,13 @@ All notable changes to Pickr. Version numbers match the Mac App Store release.
 - A note in Settings explaining that the app is now automatable.
 
 ### Changed
+- The mute OSD now uses Liquid Glass on macOS 26 and later (`Glass.swift` holds the single availability-aware helper), with the previous `NSVisualEffectView` vibrancy retained as the fallback. The deployment target stays at macOS 14, so nothing is dropped for older systems or Intel Macs.
 - CoreAudio access moved into a single `AudioHardware` type shared by the menu bar UI and the App Intents layer, so the two paths cannot drift. The audio behaviour is unchanged.
 - `AudioManager` is now a shared instance, because a system-launched intent must reach the same state object the panel renders from.
 - Version bumped to 1.1 (build 2).
 
 ### Fixed
+- Device rows stacked three trailing controls at varying opacity. A view at `.opacity(0)` still receives hits, so an invisible "confirm rename" button was covering the trailing edge of every row — tapping near the right side of a device fired rename instead of selecting it. Only the applicable control is built now.
 - `Info.plist` is now generated completely from `project.yml`. Running `xcodegen generate` had been resetting the version to 1.0/1 and silently dropping `LSMinimumSystemVersion` and `LSApplicationCategoryType`, because they were never declared in the `info.properties` block. Version keys now resolve from `$(MARKETING_VERSION)` / `$(CURRENT_PROJECT_VERSION)`, so there is a single place to bump.
 
 ### Documentation
