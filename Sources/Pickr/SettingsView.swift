@@ -7,7 +7,11 @@ struct SettingsView: View {
     private let appStoreID = "6761876281"
 
     var body: some View {
-        Form {
+        // The Settings scene sizes the window to the content's frame, and a bare Form does not
+        // scroll on overflow — with content taller than the frame it simply clipped (no scroll
+        // bar, no resize affordance). ScrollView + a fixed frame makes the pane scroll properly.
+        ScrollView {
+            Form {
             Section {
                 HStack {
                     Text("Toggle Mute")
@@ -117,11 +121,11 @@ struct SettingsView: View {
             }
             .frame(maxWidth: .infinity, alignment: .center)
             .padding(.top, 16)
+            }
+            .padding(24)
         }
-        .padding(24)
-        // Fixed width, but deliberately NOT a fixed height. Pinning the height made the pane
-        // non-resizable and unable to scroll, so anything past the frame was unreachable.
-        .frame(width: 470)
-        .frame(minHeight: 460)
+        // Fixed, deliberate pane size: content taller than this scrolls (above), which is the
+        // behaviour users expect from System Settings-style panes.
+        .frame(width: 500, height: 560)
     }
 }
