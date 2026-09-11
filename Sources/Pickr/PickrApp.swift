@@ -2,7 +2,7 @@ import SwiftUI
 
 @main
 struct PickrApp: App {
-    @StateObject private var audio = AudioManager()
+    @StateObject private var audio = AudioManager.shared
     @StateObject private var nicknames = NicknameStore()
 
     var body: some Scene {

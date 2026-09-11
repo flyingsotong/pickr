@@ -1,83 +1,70 @@
-# Pickr - Commercial Release Context
+# Pickr
 
-## Overview
-Pickr is a premium, minimalist macOS utility designed for professional audio workflows. It lives exclusively in the menu bar, providing instant, high-performance switching between audio input (microphones) and output (speakers/headphones) devices, coupled with live visual level metering and a system-wide global mute engine.
+A minimalist macOS menu bar utility for switching audio input and output devices, with live level
+metering and a system-wide microphone mute.
 
-## App Store Submission Meta
-This section contains all standard assets and copy required for App Store Connect submission.
+- **[CONTEXT.md](CONTEXT.md)** — architecture, App Store copy, and the release context an agent or developer needs
+- **[CHANGELOG.md](CHANGELOG.md)** — release history
 
-### Basic Info
-- **App Name**: Pickr
-- **Subtitle**: Quick Audio Router & Mute
-- **Bundle ID**: `fractals.pickr`
-- **App Store ID**: `6761876281`
-- **Category**: Utilities / Productivity
-- **Price Point**: $2.99 USD
+## Requirements
 
-### App Description
-Pickr is the fastest way to manage your Mac's audio hardware. Designed for remote workers, podcasters, and musicians, Pickr strips away the complexity of System Settings and puts your entire audio rig directly in your menu bar.
+- macOS 14 or later
+- Xcode 15 or later (26+ to build against the macOS 27 SDK)
+- [XcodeGen](https://github.com/yonaskolb/XcodeGen) — `brew install xcodegen`
 
-**Key Features:**
-- **Instant Routing**: Switch between your AirPods, Studio Mic, and internal speakers with a single click.
-- **Visual Feedback**: Real-time Input Metering allows you to verify your levels before you jump into a call.
-- **Global Mute**: Configure a custom keyboard shortcut to toggle your microphone system-wide.
-- **Zero Distraction**: A minimalist "Apple-native" UI that uses virtually zero idle CPU. 
-- **Custom Nicknames**: Rename complex hardware names (like "Logitech USB Headset H340") to simple aliases like "Office Mic".
+## Building
 
-### Keywords
-audio, route, microphone, speaker, mute, switch, hardware, utility, macos, menu bar, level meter, sound
+### Xcode project (use this for releases, and for anything touching App Intents)
 
----
-
-## Technical Architecture
-
-### Tech Stack
-- **Language**: Swift 6 (Strict Concurrency Enabled)
-- **UI Framework**: SwiftUI
-- **Audio Logic**: CoreAudio (Hardware Properties), AVFoundation (Metering Tap)
-- **Dependencies**: 
-    - `KeyboardShortcuts`: Industry-standard global hotkey engine.
-- **Build System**: `XcodeGen` + Native `Pickr.xcodeproj`
-- **Platform**: macOS 14+
-- **Sandboxing**: App Sandbox enabled with microphone access (`com.apple.security.device.audio-input`). Hardened Runtime enabled.
-
-### Primary Components
-
-1. **AudioManager (`AudioManager.swift`)**
-   - Central `@MainActor` state manager for all discovery and routing logic.
-   - Observes `kAudioHardwarePropertyDevices` to handle dynamic plug-and-play events (USB/Bluetooth).
-   - Manages a temporary `AVAudioEngine` tap for real-time RMS metering, throttled to 20 FPS to maintain 0% idle energy impact.
-   - Uses a single engine configuration-change observer to keep metering stable across device changes.
-
-2. **UI Architecture (`MenuView.swift`)**
-   - Implements a split Input/Output hardware grid.
-   - Designed for high-fidelity dark/light mode switching with native haptic feedback (`NSHapticFeedbackManager`).
-
-3. **Settings Engine (`SettingsView.swift`)**
-   - Native macOS Preferences Pane (`Settings` scene).
-   - Houses global hotkey recording, "Launch at Login" (via `ServiceManagement`), and developer support links.
-   - Includes an in-app “Rate Pickr” link that opens the Mac App Store review flow.
-
-4. **Persistence**
-   - **LoginItemManager**: Boots the app on login via Apple's modern Service Management APIs.
-   - **NicknameStore**: Persists custom device aliases via `UserDefaults`.
-
----
-
-## Build & Distribution
-Pickr is built using a native Xcode workflow.
-
-### Project Generation
-The `.xcodeproj` is managed by `XcodeGen`. If `project.yml` is modified, regenerate using:
 ```bash
 xcodegen generate
+open Pickr.xcodeproj
 ```
 
-### Submission Checklist
-1. **Archive**: Use `Product > Archive` in Xcode.
-2. **Privacy**: Ensure `NSMicrophoneUsageDescription` in `Info.plist` is up to date.
-3. **Sandbox**: Ensure the `.entitlements` file includes the Audio Input capability.
-4. **Assets**: All icons are hosted in `Assets.xcassets` (1024px down to 16px).
+Run from Xcode, or `Product > Archive` to submit.
 
----
-*Fractals Collective. Made in Aldinga, 2026.*
+### SwiftPM (quick local runs)
+
+```bash
+./build.sh
+open Pickr.app
+```
+
+`build.sh` compiles with SwiftPM and assembles the bundle by hand. It is fine for UI work, but it
+**cannot generate the `Metadata.appintents` bundle**, so the Siri and Shortcuts actions will not
+appear in a build made this way. SwiftPM has no equivalent of Xcode's const-values output, which is
+what `appintentsmetadataprocessor` reads. If you are testing automation, build from the Xcode
+project.
+
+### If the shortcuts don't show up
+
+Launch Services often caches an older copy of the bundle:
+
+```bash
+/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -f /Applications/Pickr.app
+```
+
+## Automation
+
+Pickr exposes three actions to Shortcuts, Siri, and Spotlight:
+
+| Action | What it does |
+|---|---|
+| Switch Audio Input | Sets the default microphone |
+| Switch Audio Output | Sets the default speaker or headphones |
+| Toggle Microphone Mute | Mutes or unmutes the default microphone |
+
+Device names come from your custom nicknames, so `Switch input to Podcast Mic in Pickr` works even
+when the hardware reports a name nobody can read.
+
+## Releasing
+
+1. Bump `CFBundleShortVersionString` and `CFBundleVersion` in `Info.plist`
+2. Bump `MARKETING_VERSION` and `CURRENT_PROJECT_VERSION` in `project.yml`
+3. `xcodegen generate`
+4. Update `CHANGELOG.md` and the submission copy in `CONTEXT.md`
+5. `Product > Archive` in Xcode
+
+## License
+
+Proprietary. Copyright Fractals Collective.

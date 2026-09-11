@@ -17,6 +17,7 @@ let package = Package(
             ],
             linkerSettings: [
                 .linkedFramework("CoreAudio"),
+                .linkedFramework("AppIntents"),
             ]
         )
     ]

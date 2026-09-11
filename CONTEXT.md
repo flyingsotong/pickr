@@ -1,83 +1,136 @@
-# Pickr - Commercial Release Context
+# Pickr — agent and release context
+
+This file is the working context for any agent or developer touching this repo. The human-facing
+intro and build instructions live in `README.md`; the release history lives in `CHANGELOG.md`.
 
 ## Overview
 Pickr is a premium, minimalist macOS utility designed for professional audio workflows. It lives exclusively in the menu bar, providing instant, high-performance switching between audio input (microphones) and output (speakers/headphones) devices, coupled with live visual level metering and a system-wide global mute engine.
 
-## App Store Submission Meta
-This section contains all standard assets and copy required for App Store Connect submission.
+## App Store submission meta
+Copy and assets required for App Store Connect.
 
-### Basic Info
-- **App Name**: Pickr
+### Basic info
+- **App name**: Pickr
 - **Subtitle**: Quick Audio Router & Mute
 - **Bundle ID**: `fractals.pickr`
 - **App Store ID**: `6761876281`
+- **Vendor ID**: 93980849
 - **Category**: Utilities / Productivity
-- **Price Point**: $2.99 USD
+- **Price point**: $2.99 USD
 
-### App Description
+### App description
+
 Pickr is the fastest way to manage your Mac's audio hardware. Designed for remote workers, podcasters, and musicians, Pickr strips away the complexity of System Settings and puts your entire audio rig directly in your menu bar.
 
-**Key Features:**
-- **Instant Routing**: Switch between your AirPods, Studio Mic, and internal speakers with a single click.
-- **Visual Feedback**: Real-time Input Metering allows you to verify your levels before you jump into a call.
-- **Global Mute**: Configure a custom keyboard shortcut to toggle your microphone system-wide.
-- **Zero Distraction**: A minimalist "Apple-native" UI that uses virtually zero idle CPU. 
-- **Custom Nicknames**: Rename complex hardware names (like "Logitech USB Headset H340") to simple aliases like "Office Mic".
+**Key features:**
+- **Instant routing**: switch between your AirPods, studio mic, and internal speakers with a single click.
+- **Automation**: drive Pickr from Siri or the Shortcuts app, and let a shortcut change your devices when a call app launches or you plug in an interface.
+- **Visual feedback**: real-time input metering lets you verify your levels before you jump into a call.
+- **Global mute**: configure a custom keyboard shortcut to toggle your microphone system-wide.
+- **Zero distraction**: a minimalist "Apple-native" UI that uses virtually zero idle CPU.
+- **Custom nicknames**: rename complex hardware names (like "Logitech USB Headset H340") to simple aliases like "Office Mic".
 
 ### Keywords
-audio, route, microphone, speaker, mute, switch, hardware, utility, macos, menu bar, level meter, sound
+`audio, microphone, mic, mute, switch, output, input, speaker, shortcuts, siri, macos, menu bar`
+
+Kept to 94 characters against App Store Connect's 100-character limit. The previous draft copy in
+this file was 103 characters and had never matched the live listing, so treat ASC as the source of
+truth for what is actually published.
+
+### What's new in 1.1
+
+Pickr now works with Siri and the Shortcuts app.
+
+Switch your input or output device, or toggle mute, without opening the menu bar. Set it up once in Shortcuts and Pickr can change devices for you — when a call app launches, when you plug in your audio interface, or on a schedule.
+
+You can also just ask: "Switch input to Podcast Mic in Pickr."
+
+Everything else works exactly as before.
 
 ---
 
-## Technical Architecture
+## Technical architecture
 
-### Tech Stack
-- **Language**: Swift 6 (Strict Concurrency Enabled)
-- **UI Framework**: SwiftUI
-- **Audio Logic**: CoreAudio (Hardware Properties), AVFoundation (Metering Tap)
-- **Dependencies**: 
-    - `KeyboardShortcuts`: Industry-standard global hotkey engine.
-- **Build System**: `XcodeGen` + Native `Pickr.xcodeproj`
+### Tech stack
+- **Language**: Swift, building in Swift 5 language mode (`SWIFT_VERSION = 5.0` in the Xcode project)
+- **UI framework**: SwiftUI
+- **Audio logic**: CoreAudio (hardware properties, routing, mute), AVFoundation (metering)
+- **Automation**: App Intents (Shortcuts, Siri, Spotlight)
+- **Dependencies**:
+    - `KeyboardShortcuts`: industry-standard global hotkey engine.
+- **Build system**: `XcodeGen` + native `Pickr.xcodeproj`, plus a SwiftPM path (`build.sh`) for local runs
 - **Platform**: macOS 14+
-- **Sandboxing**: App Sandbox enabled with microphone access (`com.apple.security.device.audio-input`). Hardened Runtime enabled.
+- **Sandboxing**: App Sandbox enabled with microphone access (`com.apple.security.device.audio-input`). Hardened runtime enabled.
 
-### Primary Components
+### Primary components
 
-1. **AudioManager (`AudioManager.swift`)**
-   - Central `@MainActor` state manager for all discovery and routing logic.
-   - Observes `kAudioHardwarePropertyDevices` to handle dynamic plug-and-play events (USB/Bluetooth).
-   - Manages a temporary `AVAudioEngine` tap for real-time RMS metering, throttled to 20 FPS to maintain 0% idle energy impact.
-   - Uses a single engine configuration-change observer to keep metering stable across device changes.
+1. **AudioHardware (`AudioHardware.swift`)**
+   - Single source of truth for CoreAudio. Deliberately non-isolated and UI-free so the App Intents layer can enumerate and switch devices without going through `AudioManager`.
+   - Owns device enumeration (filtered to devices with streams, excluding CoreAudio's `CADefaultDeviceAggregate`), default input/output get and set, hardware mute support and state, and nickname lookup.
 
-2. **UI Architecture (`MenuView.swift`)**
-   - Implements a split Input/Output hardware grid.
+2. **AudioManager (`AudioManager.swift`)**
+   - Central `@MainActor` state manager, exposed as a shared instance because a system-launched intent must reach the same object the panel renders from.
+   - Builds its published state on top of `AudioHardware`, so the UI path and the automation path cannot drift.
+   - Observes `kAudioHardwarePropertyDevices`, `kAudioHardwarePropertyDefaultInputDevice` and `kAudioHardwarePropertyDefaultOutputDevice` to handle dynamic plug-and-play events (USB/Bluetooth).
+   - Manages a temporary `AVAudioRecorder` with metering enabled for real-time level display, throttled to 20 FPS to maintain 0% idle energy impact. (Earlier revisions of this document described this as an `AVAudioEngine` tap; that was never what the code did.)
+
+3. **App Intents (`PickrIntents.swift`)**
+   - `PickrInputDevice` and `PickrOutputDevice` are separate `AppEntity` types, because one physical device can appear in both directions and App Intents resolves one query per entity type. Separate types make "switch input to X" unambiguous.
+   - Device names come from `AudioHardware.displayName`, so custom nicknames resolve in Siri.
+   - Three intents: `SetInputDeviceIntent`, `SetOutputDeviceIntent`, `ToggleMuteIntent`. All run without opening the app.
+   - Intents re-resolve the target device at run time, so a device that has been unplugged since the shortcut was written reports back instead of silently failing.
+   - Exactly one `AppShortcutsProvider` (`PickrAppShortcuts`) — more than one is a build-time error.
+
+4. **UI architecture (`MenuView.swift`)**
+   - Implements a split input/output hardware grid.
    - Designed for high-fidelity dark/light mode switching with native haptic feedback (`NSHapticFeedbackManager`).
 
-3. **Settings Engine (`SettingsView.swift`)**
-   - Native macOS Preferences Pane (`Settings` scene).
+5. **Settings engine (`SettingsView.swift`)**
+   - Native macOS preferences pane (`Settings` scene).
    - Houses global hotkey recording, "Launch at Login" (via `ServiceManagement`), and developer support links.
-   - Includes an in-app “Rate Pickr” link that opens the Mac App Store review flow.
+   - Includes an in-app "Rate Pickr" link that opens the Mac App Store review flow.
 
-4. **Persistence**
-   - **LoginItemManager**: Boots the app on login via Apple's modern Service Management APIs.
-   - **NicknameStore**: Persists custom device aliases via `UserDefaults`.
+6. **Persistence**
+   - **LoginItemManager**: boots the app on login via Apple's modern Service Management APIs.
+   - **NicknameStore**: persists custom device aliases via `UserDefaults` under `deviceNicknames`. `AudioHardware.nicknames()` reads the same key so the intents and the UI agree.
 
 ---
 
-## Build & Distribution
-Pickr is built using a native Xcode workflow.
+## Build and distribution
 
-### Project Generation
-The `.xcodeproj` is managed by `XcodeGen`. If `project.yml` is modified, regenerate using:
+### Two build paths, and they differ in one important way
+
+**Xcode project (used for App Store submission).** Required for anything involving App Intents:
+
 ```bash
-xcodegen generate
+xcodegen generate          # after editing project.yml
+open Pickr.xcodeproj       # Product > Archive
 ```
 
-### Submission Checklist
-1. **Archive**: Use `Product > Archive` in Xcode.
-2. **Privacy**: Ensure `NSMicrophoneUsageDescription` in `Info.plist` is up to date.
-3. **Sandbox**: Ensure the `.entitlements` file includes the Audio Input capability.
-4. **Assets**: All icons are hosted in `Assets.xcassets` (1024px down to 16px).
+**SwiftPM (`build.sh`, for local runs only).** Convenient, but SwiftPM cannot produce the
+`Metadata.appintents` bundle that Shortcuts, Spotlight and Siri read to discover the intents. The
+intents compile and are correct, they simply do not appear in Shortcuts from a SwiftPM-built app.
+If you are testing the Siri or Shortcuts side, build from the Xcode project instead.
+
+If the shortcuts look stale after installing a new build, it is almost always Launch Services
+caching an old copy:
+
+```bash
+/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -f /Applications/Pickr.app
+```
+
+### Submission checklist
+1. **Version**: `Info.plist` holds the shipping version (`CFBundleShortVersionString`); `project.yml` holds `MARKETING_VERSION`. Bump both, then run `xcodegen generate` so `project.pbxproj` matches.
+2. **Archive**: use `Product > Archive` in Xcode. Confirm the archive is arm64 (see below).
+3. **Privacy**: ensure `NSMicrophoneUsageDescription` in `Info.plist` is up to date.
+4. **Sandbox**: ensure `Pickr.entitlements` includes the audio input capability.
+5. **Assets**: all icons are hosted in `Assets.xcassets` (1024px down to 16px).
+
+### Architecture note
+The built binary is arm64-only, which is what macOS 27 and 28 expect. macOS 27 is the final release
+with Rosetta, and its Settings pane now lists Intel-only apps as incompatible with macOS 28 — so
+confirm the release archive does not quietly pick up an x86_64 slice.
 
 ---
+
 *Fractals Collective. Made in Aldinga, 2026.*

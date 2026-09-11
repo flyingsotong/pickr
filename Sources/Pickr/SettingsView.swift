@@ -26,7 +26,7 @@ struct SettingsView: View {
             } header: {
                 Text("System Control")
             } footer: {
-                Text("Pickr's global shortcut acts system-wide. You can mute your active microphone natively from any application without opening the menu.")
+                Text("Pickr's global shortcut acts system-wide. You can mute your active microphone natively from any application without opening the menu.\n\nPickr also works with Siri and the Shortcuts app, so you can switch devices or toggle mute from a voice command or an automation.")
                     .foregroundStyle(.tertiary)
                     .font(.caption)
                     .padding(.top, 4)
@@ -77,6 +77,6 @@ struct SettingsView: View {
             .padding(.top, 16)
         }
         .padding(24)
-        .frame(width: 450, height: 350)
+        .frame(width: 450, height: 390)
     }
 }
