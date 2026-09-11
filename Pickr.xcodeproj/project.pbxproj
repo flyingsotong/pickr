@@ -10,6 +10,7 @@
 		0366449C45BC54C02CE83ACC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6CC19ED363EBC6F3E77FFAF0 /* Assets.xcassets */; };
 		0F768735284FAAD616D3F77C /* PickrApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683FC3F209084B16592AD40A /* PickrApp.swift */; };
 		1739FF633EB2AB72814700F4 /* AudioHardware.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64BFDD68024B5D67A9B9F287 /* AudioHardware.swift */; };
+		1AD6B5C0AFB1E34789B5E56A /* Glass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB923410C6DBB12D0309CA1D /* Glass.swift */; };
 		244B92116DA89433E406834C /* PickrIntents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB5F040ED681A308B8B4520 /* PickrIntents.swift */; };
 		565D0927F00880021281F3FA /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCA6C13F76757AE16928D1D /* SettingsView.swift */; };
 		69D8A874ED75880247A047EA /* NicknameStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8FC9B3D4B955AF1C161E4DB /* NicknameStore.swift */; };
@@ -32,6 +33,7 @@
 		95B2A5B4D74245AE1F2DDBB9 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		99F5EE310B34DD3D17C55B96 /* OSDWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSDWindow.swift; sourceTree = "<group>"; };
 		9FCA6C13F76757AE16928D1D /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		AB923410C6DBB12D0309CA1D /* Glass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Glass.swift; sourceTree = "<group>"; };
 		C60A0D2BCDA2B265ADB4EC21 /* Pickr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pickr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8FC9B3D4B955AF1C161E4DB /* NicknameStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -55,6 +57,7 @@
 				64BFDD68024B5D67A9B9F287 /* AudioHardware.swift */,
 				5762D83C9895FF99DF23E1D4 /* AudioManager.swift */,
 				22E5B7C0E23045D870F32698 /* Constants.swift */,
+				AB923410C6DBB12D0309CA1D /* Glass.swift */,
 				48B1261F1362D614F71E91CD /* LoginItemManager.swift */,
 				95B2A5B4D74245AE1F2DDBB9 /* MenuView.swift */,
 				D8FC9B3D4B955AF1C161E4DB /* NicknameStore.swift */,
@@ -162,6 +165,7 @@
 				1739FF633EB2AB72814700F4 /* AudioHardware.swift in Sources */,
 				C163AA782D7ADB4E2564262D /* AudioManager.swift in Sources */,
 				F4AAF07ADDE8D4E7DCCD502A /* Constants.swift in Sources */,
+				1AD6B5C0AFB1E34789B5E56A /* Glass.swift in Sources */,
 				FEE1E3C3E0AE140209800CFD /* LoginItemManager.swift in Sources */,
 				9158D9C4C2AFED6B63EDE2A5 /* MenuView.swift in Sources */,
 				69D8A874ED75880247A047EA /* NicknameStore.swift in Sources */,
