@@ -144,30 +144,41 @@ correct fix look like it did nothing.
 
 ### Submitting the version to App Store Connect
 
-The release script (`scripts/release.sh`, launched as `~/bin/pickr-release.command` in the GUI session)
-archives and exports only — it does not upload. Three steps finish it:
+**The release process is shared with every other app and documented once**, in the
+`app-store-connect-release` skill → `references/release-runbook.md`. Follow it; do not reconstruct a
+flow from this file.
+
+The pieces, so the paths are not a mystery:
+
+| Piece | Where |
+|---|---|
+| Archive + export | `~/bin/asc-release.sh pickr`, launched in the GUI session as `~/bin/pickr-release.command` |
+| Canonical copy of that script | `/root/.hermes/scripts/macos-asc-release.sh` on the VPS |
+| Version, What's New, build, submit | `/root/.hermes/scripts/asc-release.py` on the VPS |
 
 ```bash
-# 1. upload the exported package (App Manager key; ~/.appstoreconnect/private_keys/ on the Mac)
-xcrun altool --upload-app -f ~/PickrRelease/export/Pickr.pkg -t macos \
-  --apiKey "$ASC_KEY_ID" --apiIssuer "$ASC_ISSUER_ID"
+ssh mac '~/bin/asc-release.sh pickr --check'          # preflight, changes nothing
+ssh mac 'open ~/bin/pickr-release.command'            # archive + export, GUI session
+ssh mac 'tail -5 ~/PickrRelease/release.log'          # RELEASE_OK or RELEASE_FAILED
 
-# 2. wait for processing (a build appears within a couple of minutes)
-python3 scripts/asc-submit.py status
+# upload the .pkg (App Manager key; ~/.appstoreconnect/private_keys/ on the Mac)
+set -a; source /root/.hermes/credentials/asc.env; set +a
+ssh mac "xcrun altool --upload-app -f ~/PickrRelease/export/Pickr.pkg -t macos \
+  --apiKey $ASC_KEY_ID --apiIssuer $ASC_ISSUER_ID"
 
-# 3. create the version, set whatsNew, attach the build, submit
-python3 scripts/asc-submit.py submit --version 1.2 --build 3 --whats-new-file <notes.txt>
+python3 /root/.hermes/scripts/asc-release.py wait    --app pickr --version 1.2 --build 4
+python3 /root/.hermes/scripts/asc-release.py prepare --app pickr --version 1.2 --build 4   # stops here
 ```
 
-Credentials for the API live in `/root/.hermes/credentials/asc.env` on the VPS (not in this repo).
-`asc-submit.py` enforces the order that the API requires: export compliance on the *build*, then the
-version, then `whatsNew`, then the build relationship, then the review submission. Two things bite if
-done out of order — `whatsNew` and `promotionalText` do not carry over between versions and an update
-without `whatsNew` is rejected, and the version's localization (with its screenshots) is copied
-automatically from the previous version, so creating one by hand returns a duplicate-locale error.
+The CLI enforces the order the API requires: export compliance on the *build*, then the version, then
+`whatsNew`, then the build relationship, then the review submission. Two things bite if done out of
+order — `whatsNew` and `promotionalText` do not carry over between versions and an update without
+`whatsNew` is rejected, and the version's localization (with its screenshots) is copied automatically
+from the previous version, so creating one by hand returns a duplicate-locale error.
 
-The `whatsNew` text is the `What's new in <version>` section of this file, extracted so the listing
-and the repo cannot drift.
+The `whatsNew` text is the `What's new in <version>` section of this file, extracted by the CLI so the
+listing and the repo cannot drift. `prepare` leaves the version ready; `submit` is run only when Alan
+has asked for that version to be submitted.
 
 ### Toolchain: Xcode 26 does not run on macOS 27
 
