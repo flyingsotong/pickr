@@ -1,0 +1,20 @@
+# macOS
+.DS_Store
+
+# Xcode / SwiftPM build output — never commit these; they are 60x the size of the source
+.build/
+build/
+DerivedData/
+*.xcuserstate
+xcuserdata/
+
+# Built product
+*.app
+
+# Python
+__pycache__/
+*.pyc
+
+# Local agent state, machine-specific
+.claude/
+.qwen/
