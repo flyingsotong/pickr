@@ -87,12 +87,13 @@ Everything else works exactly as before.
 
 5. **Settings engine (`SettingsView.swift`)**
    - Native macOS preferences pane (`Settings` scene).
-   - Houses global hotkey recording, "Launch at Login" (via `ServiceManagement`), and developer support links.
+   - Houses global hotkey recording, "Launch at Login" (via `ServiceManagement`), the **Device Names** editor, and developer support links.
+   - **Device Names** is the primary place a device alias is set: an INPUT band and an OUTPUT band listing the devices the panel lists, one field each, saving as you type. The panel's hover pencil and right-click menu are shortcuts to the same store, not a separate feature — the pencil was the *only* route until Sep 2026 and proved undiscoverable, so it must not be treated as sufficient on its own.
    - Includes an in-app "Rate Pickr" link that opens the Mac App Store review flow.
 
 6. **Persistence**
    - **LoginItemManager**: boots the app on login via Apple's modern Service Management APIs.
-   - **NicknameStore**: persists custom device aliases via `UserDefaults` under `deviceNicknames`. `AudioHardware.nicknames()` reads the same key so the intents and the UI agree.
+   - **NicknameStore**: persists custom device aliases via `UserDefaults` under `deviceNicknames`. `AudioHardware.nicknames()` reads the same key so the intents and the UI agree. `binding(for:)` is what the Settings field writes through, so a rename lands in the store as it is typed rather than on a commit.
 
 ---
 

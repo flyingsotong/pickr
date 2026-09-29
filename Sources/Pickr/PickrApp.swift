@@ -18,6 +18,8 @@ struct PickrApp: App {
 
         Settings {
             SettingsView()
+                .environmentObject(audio)
+                .environmentObject(nicknames)
         }
     }
 }

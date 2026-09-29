@@ -177,6 +177,16 @@ struct DeviceRow: View {
             NSHapticFeedbackManager.defaultPerformer.perform(.alignment, performanceTime: .default)
             onSelect() 
         } }
+        .contextMenu {
+            if isEditing {
+                Button("Cancel Rename") { cancelRename() }
+            } else {
+                Button("Rename…") { startEditing() }
+            }
+            if nickname != nil {
+                Button("Use Hardware Name") { onRename("") }
+            }
+        }
         .animation(.easeInOut(duration: 0.1), value: isHovered)
         .animation(.easeInOut(duration: 0.1), value: isEditing)
     }

@@ -2,7 +2,16 @@
 
 All notable changes to Pickr. Version numbers match the Mac App Store release.
 
-## 1.1 — unreleased
+## Unreleased
+
+### Added
+- **Device names in Settings.** A **Device Names** section lists every input and output device Pickr can see, each with a field for the name it should answer to. The name is saved as it is typed, with no confirm step to hunt for, and every surface follows at once: the panel, the menu bar label, and the device names offered to Siri and Shortcuts. Clearing a field returns the device to its hardware name, and a reset control appears beside any device that has been renamed.
+- **Rename on the panel's right-click menu**, alongside an entry that restores the hardware name. Inline editing still commits on Enter, since the panel has somewhere else to go; the Settings field has no such moment, so the edit there is the save.
+
+### Fixed
+- **Renaming a device was effectively unreachable.** The only route was a pencil that appeared when hovering a device row in the panel, and nothing in the app, the website, or the App Store listing pointed at it — a September 2026 check of the live app found the nickname store had never been written to once, five months after the feature shipped. Settings is now the visible home for it.
+
+## 1.1 — 11 September 2026
 
 ### Added
 - **Global shortcuts for cycling devices.** Next input and next output join toggle mute, each configurable in Settings. A hotkey has no visible target to aim at, so cycling wraps at the end of the list, and the menu bar label is the confirmation.
