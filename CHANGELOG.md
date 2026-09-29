@@ -2,7 +2,7 @@
 
 All notable changes to Pickr. Version numbers match the Mac App Store release.
 
-## Unreleased
+## 1.2 — 29 September 2026
 
 ### Added
 - **Device names in Settings.** A **Device Names** section lists every input and output device Pickr can see, each with a field for the name it should answer to. The name is saved as it is typed, with no confirm step to hunt for, and every surface follows at once: the panel, the menu bar label, and the device names offered to Siri and Shortcuts. Clearing a field returns the device to its hardware name, and a reset control appears beside any device that has been renamed.

@@ -37,6 +37,16 @@ Kept to 94 characters against App Store Connect's 100-character limit. The previ
 this file was 103 characters and had never matched the live listing, so treat ASC as the source of
 truth for what is actually published.
 
+### What's new in 1.2
+
+You can now name your devices in Settings.
+
+Pickr has always been able to rename hardware that arrives with a long, unhelpful name, but the only way in was a pencil that appeared when you hovered a device in the panel, so almost nobody found it. It has a proper home now.
+
+Settings, then Device Names, lists every input and output device Pickr can see, each with its own field. Type a name and it takes effect everywhere at once, in the panel, in the menu bar, and when you switch devices with Siri or Shortcuts. Clear the field and the hardware name comes back.
+
+Renaming from the panel still works, now on the right-click menu, along with Use Hardware Name to undo it.
+
 ### What's new in 1.1
 
 Pickr now works with Siri and the Shortcuts app.
